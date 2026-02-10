@@ -1,6 +1,9 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
 
 
 using std::cout;
@@ -10,7 +13,7 @@ using std::string;
 
 struct Studentas {
     string vardas, pavarde;
-    int nd[10], egz;
+    double nd[10], egz;
 };
 
 void Skaityti(Studentas X[], int &s, int &n){
@@ -40,12 +43,37 @@ double Vidurkis(Studentas X[], int n, int x){
     return sum/n;
 }
 
+double Mediana(Studentas X[], int n, int x){
+    if(n%2==0){
+        return (X[x].nd[n/2-1]+X[x].nd[n/2])/2.0;
+    }
+    else{
+        return X[x].nd[n/2];
+    }
+}
+
 void Rezultatas(Studentas X[], int s, int n){
+    cout<<"Mediana ar vidurkis? (m/v): ";
+    string pasirinkimas;
+    cin >> pasirinkimas;
+    std::transform(pasirinkimas.begin(), pasirinkimas.end(), pasirinkimas.begin(),
+               [](unsigned char c){ return std::tolower(c); });
+
+    if(pasirinkimas=="m"||pasirinkimas=="mediana"){
+        for(int i=0;i<s;i++){
+            cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Mediana(X,n,i)*0.4+X[i].egz*0.6<<endl;
+        }
+    }
+    else{
     for(int i=0;i<s;i++){
-        cout<<X[i].vardas<<" "<<X[i].pavarde<<" "<<Vidurkis(X,n,i)*0.4+(double)X[i].egz*0.6<<endl;
+        cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Vidurkis(X,n,i)*0.4+X[i].egz*0.6<<endl;
+    }
     }
 
 }
+
+
+
 
 
 int main() {
