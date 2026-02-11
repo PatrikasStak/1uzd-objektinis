@@ -17,22 +17,37 @@ struct Studentas {
 };
 
 void Skaityti(Studentas X[], int &s, int &n){
-    cout<<"Iveskite studentu skaiciu: ";
-    cin >> s;
-    cout<<"Iveskite nd skaiciu: ";
-    cin >> n;
-    for(int i=0;i<s;i++){
-        cout<<"Iveskite "<<i+1<<" studento varda: ";
-        cin >> X[i].vardas;
-        cout<<"Iveskite "<<i+1<<" studento pavarde: ";
-        cin >> X[i].pavarde;
-        for(int j=0;j<n;j++){
-            cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" nd: ";
-            cin >> X[i].nd[j];
+    string line;
+    int i=0;
+    cout<<"Iveskite "<<i+1<<" studento varda:  ";
+    while(getline(cin, line)){
+        if(line.empty()) break;
+        else {
+            X[i].vardas=line;
+            cout<<"Iveskite "<<i+1<<" studento pavarde: ";
+            getline(cin, line);
+            X[i].pavarde=line;
+            int j=0;
+            cout<<"Iveskite "<<i+1<<" studento namu darbu "<<j+1<<" pazymi (baigti tuscia eilute): ";
+            while(getline(cin, line)){
+                if(line.empty()) break;
+                else {
+                    X[i].nd[j]=std::stod(line);
+                    j++;
+                }
+                cout<<"Iveskite "<<i+1<<" studento namu darbu "<<j+1<<" pazymi (baigti tuscia eilute): ";
+            }
+            n=j;
         }
+        
         cout<<"Iveskite "<<i+1<<" studento egzamino rezultata: ";
-        cin >> X[i].egz;
+        getline(cin, line);
+        X[i].egz=std::stod(line);
+        i++;
+        cout<<"Iveskite "<<i+1<<" studento varda:  ";
+        
     }
+    s=i;
 }
 
 double Vidurkis(Studentas X[], int n, int x){
@@ -78,8 +93,8 @@ void Rezultatas(Studentas X[], int s, int n){
 
 int main() {
     Studentas A[100];
-    int s; //studentu skaicius
-    int n; //nd skaicius
+    int s=0; //studentu skaicius
+    int n=0; //nd skaicius
     Skaityti(A,s,n);
     Rezultatas(A,s,n);
     return 0;
