@@ -13,61 +13,83 @@ using std::string;
 
 struct Studentas {
     string vardas, pavarde;
-    double nd[10], egz;
+    double* nd= nullptr;
+    int nd_kiek=0;
+    double egz;
+
+    ~Studentas() { delete[] nd; }
+
 };
 
-void Skaityti(Studentas X[], int &s, int &n){
+void Skaityti(Studentas*& X, int &s){
+    X = nullptr;
+    s=0;
     string line;
-    int i=0;
-    cout<<"Iveskite "<<i+1<<" studento varda:  ";
-    while(getline(cin, line)){
-        if(line.empty()) break;
-        else {
-            X[i].vardas=line;
-            cout<<"Iveskite "<<i+1<<" studento pavarde: ";
-            getline(cin, line);
-            X[i].pavarde=line;
-            int j=0;
-            cout<<"Iveskite "<<i+1<<" studento namu darbu "<<j+1<<" pazymi (baigti tuscia eilute): ";
-            while(getline(cin, line)){
-                if(line.empty()) break;
-                else {
-                    X[i].nd[j]=std::stod(line);
-                    j++;
-                }
-                cout<<"Iveskite "<<i+1<<" studento namu darbu "<<j+1<<" pazymi (baigti tuscia eilute): ";
-            }
-            n=j;
-        }
-        
-        cout<<"Iveskite "<<i+1<<" studento egzamino rezultata: ";
+    while(true){
+        cout<<"Iveskite studento "<<s+1<<" varda: ";
         getline(cin, line);
-        X[i].egz=std::stod(line);
-        i++;
-        cout<<"Iveskite "<<i+1<<" studento varda:  ";
+        if (line.empty()) break;
+        
+        Studentas* temp = new Studentas[s+1];
+        for(int i=0; i<s; i++){
+            temp[i] = X[i];
+        }
+        delete[] X;
+        X = temp;
+
+        X[s].vardas = line;
+
+        cout<<"Iveskite "<<s+1<<" studento pavarde: ";
+        getline(cin, X[s].pavarde);
+
+        X[s].nd = nullptr;
+        X[s].nd_kiek = 0;
+
+        int j=0;
+        while(true){
+            cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+            getline(cin, line);
+            if(line.empty())break;
+
+            double* nd_temp = new double[j+1];
+            for(int i=0;i<j;i++){
+                nd_temp[i]=X[s].nd[i];
+            }
+                delete[] X[s].nd;
+                X[s].nd=nd_temp;
+
+                X[s].nd[j]=std::stod(line);
+                j++;
+        }
+            X[s].nd_kiek=j;
+
+            cout<<"Iveskite "<<s+1<<" studento egzaminu pazymi: ";
+            getline(cin, line);
+            X[s].egz=std::stod(line);
+            s++;
         
     }
-    s=i;
+
 }
 
-double Vidurkis(Studentas X[], int n, int x){
+double Vidurkis(Studentas* X, int x){
     double sum=0.0;
-    for(int i=0;i<n;i++){
+    for(int i=0;i<X[x].nd_kiek;i++){
         sum+=X[x].nd[i];
     }
-    return sum/n;
+    return sum/X[x].nd_kiek;
 }
 
-double Mediana(Studentas X[], int n, int x){
-    if(n%2==0){
-        return (X[x].nd[n/2-1]+X[x].nd[n/2])/2.0;
+double Mediana(Studentas* X, int x){
+    if(X[x].nd_kiek%2==0){
+        return (X[x].nd[X[x].nd_kiek/2-1]+X[x].nd[X[x].nd_kiek/2])/2.0;
     }
     else{
-        return X[x].nd[n/2];
+        return X[x].nd[X[x].nd_kiek/2];
     }
 }
 
-void Rezultatas(Studentas X[], int s, int n){
+void Rezultatas(Studentas* X, int s){
     cout<<"Mediana ar vidurkis? (m/v): ";
     string pasirinkimas;
     cin >> pasirinkimas;
@@ -76,12 +98,12 @@ void Rezultatas(Studentas X[], int s, int n){
 
     if(pasirinkimas=="m"||pasirinkimas=="mediana"){
         for(int i=0;i<s;i++){
-            cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Mediana(X,n,i)*0.4+X[i].egz*0.6<<endl;
+            cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Mediana(X,i)*0.4+X[i].egz*0.6<<endl;
         }
     }
     else{
     for(int i=0;i<s;i++){
-        cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Vidurkis(X,n,i)*0.4+X[i].egz*0.6<<endl;
+        cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Vidurkis(X,i)*0.4+X[i].egz*0.6<<endl;
     }
     }
 
@@ -92,10 +114,9 @@ void Rezultatas(Studentas X[], int s, int n){
 
 
 int main() {
-    Studentas A[100];
+    Studentas* A = nullptr;
     int s=0; //studentu skaicius
-    int n=0; //nd skaicius
-    Skaityti(A,s,n);
-    Rezultatas(A,s,n);
+    Skaityti(A,s);
+    Rezultatas(A,s);
     return 0;
 }
