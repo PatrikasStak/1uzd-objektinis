@@ -12,95 +12,69 @@ using std::endl;
 using std::string;
 using std::left;
 using std::setw;
+using std::vector;
 
 struct Studentas {
     string vardas, pavarde;
-    double* nd= nullptr;
-    int nd_kiek=0;
+    vector<double> nd;
     double egz;
-
-    ~Studentas() { delete[] nd; }
 
 };
 
-void Skaityti(Studentas*& X, int &s){
-    X = nullptr;
-    s=0;
+void Skaityti(vector<Studentas>& X){
     string line;
+    int i=0;
     while(true){
-        cout<<"Iveskite "<<s+1<<" studento varda (enter kad baigti): ";
-        getline(cin, line);
-        if (line.empty()) break;
-        
-        Studentas* temp = new Studentas[s+1];
-        for(int i=0; i<s; i++){
-            temp[i] = X[i];
-        }
-        delete[] X;
-        X = temp;
-
-        X[s].vardas = line;
-
-        cout<<"Iveskite "<<s+1<<" studento pavarde: ";
-        getline(cin, X[s].pavarde);
-
-        X[s].nd = nullptr;
-        X[s].nd_kiek = 0;
-
+        cout<<"Iveskite "<<i+1<<" studento varda (enter kad baigti): ";
+        getline(cin,line);
+        if(line.empty())break;
+        Studentas naujas;
+        naujas.vardas=line;
+        cout<<"Iveskite "<<i+1<<" studento pavarde: ";
+        getline(cin, naujas.pavarde);
         int j=0;
         while(true){
-            cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+            cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
             getline(cin, line);
             if(line.empty())break;
             try{
-            double* nd_temp = new double[j+1];
-            for(int i=0;i<j;i++){
-                nd_temp[i]=X[s].nd[i];
-            }
-                delete[] X[s].nd;
-                X[s].nd=nd_temp;
-
-                X[s].nd[j]=std::stod(line);
-                j++;
-
-
+            naujas.nd.push_back(std::stod(line));
+            j++;
+            }catch(...){}
+            
+        }
+        while(true){
+        cout<<"Iveskite "<<i+1<<" studento egzamino pazymi: ";
+        getline(cin, line);
+        try{
+        naujas.egz = std::stod(line);
+        break;
         }catch(...){}
         }
-
-            X[s].nd_kiek=j;
-        while(true){
-            cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
-            getline(cin, line);
-            try{
-            X[s].egz=std::stod(line);
-            break;
-        }catch(...){}
-            
-    }
-    s++;
-        
+        X.push_back(naujas);
+        i++;
     }
 
 }
 
-double Vidurkis(Studentas* X, int x){
+double Vidurkis(vector<Studentas> X, int x){
     double sum=0.0;
-    for(int i=0;i<X[x].nd_kiek;i++){
+    for(size_t i=0;i<X[x].nd.size();i++){
         sum+=X[x].nd[i];
     }
-    return sum/X[x].nd_kiek;
+    return sum/X[x].nd.size();
 }
 
-double Mediana(Studentas* X, int x){
-    if(X[x].nd_kiek%2==0){
-        return (X[x].nd[X[x].nd_kiek/2-1]+X[x].nd[X[x].nd_kiek/2])/2.0;
+double Mediana(vector<Studentas> X, int x){
+    if(X[x].nd.size()%2==0){
+        return (X[x].nd[X[x].nd.size()/2-1]+X[x].nd[X[x].nd.size()/2])/2.0;
     }
     else{
-        return X[x].nd[X[x].nd_kiek/2];
+        return X[x].nd[X[x].nd.size()/2];
     }
 }
 
-void Rezultatas(Studentas* X, int s){
+void Rezultatas(vector<Studentas> X){
     cout<<"Mediana ar vidurkis? (m/v): ";
     string pasirinkimas;
     cin >> pasirinkimas;
@@ -110,7 +84,7 @@ void Rezultatas(Studentas* X, int s){
     size_t w1 = string("Vardas").size();
     size_t w2 = string("Pavarde").size();
 
-    for(int i=0;i<s;++i){
+    for(int i=0;i<X.size();++i){
         w1=std::max(w1, X[i].vardas.size());
         w2=std::max(w2, X[i].pavarde.size());
     }
@@ -130,12 +104,12 @@ void Rezultatas(Studentas* X, int s){
     cout<<endl;
 
     if(pasirinkimas=="m"||pasirinkimas=="mediana"){
-        for(int i=0;i<s;i++){
+        for(int i=0;i<X.size();i++){
             cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<Mediana(X,i)*0.4+X[i].egz*0.6<<endl;
         }
     }
     else{
-    for(int i=0;i<s;i++){
+    for(int i=0;i<X.size();i++){
         cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<Vidurkis(X,i)*0.4+X[i].egz*0.6<<endl;
     }
     }
@@ -147,9 +121,8 @@ void Rezultatas(Studentas* X, int s){
 
 
 int main() {
-    Studentas* A = nullptr;
-    int s=0; //studentu skaicius
-    Skaityti(A,s);
-    Rezultatas(A,s);
+    vector<Studentas> A;
+    Skaityti(A);
+    Rezultatas(A);
     return 0;
 }
