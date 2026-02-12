@@ -10,6 +10,8 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+using std::left;
+using std::setw;
 
 struct Studentas {
     string vardas, pavarde;
@@ -50,7 +52,7 @@ void Skaityti(Studentas*& X, int &s){
             cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
             getline(cin, line);
             if(line.empty())break;
-
+            try{
             double* nd_temp = new double[j+1];
             for(int i=0;i<j;i++){
                 nd_temp[i]=X[s].nd[i];
@@ -60,13 +62,22 @@ void Skaityti(Studentas*& X, int &s){
 
                 X[s].nd[j]=std::stod(line);
                 j++;
-        }
-            X[s].nd_kiek=j;
 
+
+        }catch(...){}
+        }
+
+            X[s].nd_kiek=j;
+        while(true){
             cout<<"Iveskite "<<s+1<<" studento egzaminu pazymi: ";
             getline(cin, line);
+            try{
             X[s].egz=std::stod(line);
-            s++;
+            break;
+        }catch(...){}
+            
+    }
+    s++;
         
     }
 
@@ -95,15 +106,37 @@ void Rezultatas(Studentas* X, int s){
     cin >> pasirinkimas;
     std::transform(pasirinkimas.begin(), pasirinkimas.end(), pasirinkimas.begin(),
                [](unsigned char c){ return std::tolower(c); });
+    
+    size_t w1 = string("Vardas").size();
+    size_t w2 = string("Pavarde").size();
+
+    for(int i=0;i<s;++i){
+        w1=std::max(w1, X[i].vardas.size());
+        w2=std::max(w2, X[i].pavarde.size());
+    }
+
+    w1+=2;
+    w2+=2;
+    
+    if(pasirinkimas=="m"||pasirinkimas=="mediana"){
+        cout<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Med.)"<<endl;
+    }
+    else{
+        cout<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Vid.)"<<endl;
+    }
+    for(int i=0;i<w1+w2+16;i++){
+        cout<<"-";
+    }
+    cout<<endl;
 
     if(pasirinkimas=="m"||pasirinkimas=="mediana"){
         for(int i=0;i<s;i++){
-            cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Mediana(X,i)*0.4+X[i].egz*0.6<<endl;
+            cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<Mediana(X,i)*0.4+X[i].egz*0.6<<endl;
         }
     }
     else{
     for(int i=0;i<s;i++){
-        cout<<X[i].vardas<<" "<<X[i].pavarde<<": "<<std::fixed<<std::setprecision(2)<<Vidurkis(X,i)*0.4+X[i].egz*0.6<<endl;
+        cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<Vidurkis(X,i)*0.4+X[i].egz*0.6<<endl;
     }
     }
 
