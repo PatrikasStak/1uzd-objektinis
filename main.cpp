@@ -44,6 +44,7 @@ double Vidurkis(Studentas X[], int n, int x){
 }
 
 double Mediana(Studentas X[], int n, int x){
+    std::sort(X[x].nd, X[x].nd + n);
     if(n%2==0){
         return (X[x].nd[n/2-1]+X[x].nd[n/2])/2.0;
     }
