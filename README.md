@@ -4,3 +4,4 @@
 "padaryta dinamine atmintis masyvams" - pakeiciau koda kad masyvai butu dinaminiai o ne statiniai
 "bug fixai + pagrazinimas" - masyvu failo rezultate pridetas suskirstymas(Vardas, pavarde, galutinis) islygintas su setw. Padariau kad butu negalima irasyti nesakiciu, kai vedami namu darbu pazymiai ir egzaminu rezultatai.
 "pridetas main_vector.cpp" - pridetas failas veikiantis su vektoriais vietoj masyvu
+"išskaidytas kodas į .h ir .cpp failus" - main.cpp ir main_vector.cpp isskaidziau i lib.h func(m/v).cpp ir func(m/v).h (m- masyvai v- vektoriai), dar pridejau sort funkcija medianos funkcijose
