@@ -19,7 +19,16 @@ void Skaityti(Studentas*& X, int &s){
         
         Studentas* temp = new Studentas[s+1];
         for(int i=0; i<s; i++){
-            temp[i] = X[i];
+            temp[i].vardas = X[i].vardas;
+            temp[i].pavarde = X[i].pavarde;
+            temp[i].nd_kiek = X[i].nd_kiek;
+            temp[i].egz = X[i].egz;
+            if(X[i].nd_kiek > 0){
+                temp[i].nd = new double[X[i].nd_kiek];
+                for(int k=0; k<X[i].nd_kiek; k++){
+                    temp[i].nd[k] = X[i].nd[k];
+                }
+            }
         }
         delete[] X;
         X = temp;
