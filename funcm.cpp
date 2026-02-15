@@ -33,39 +33,58 @@ void Skaityti(Studentas*& X, int &s){
         X[s].nd_kiek = 0;
 
         int j=0;
+        bool random_hw = false;
         while(true){
-            cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+            cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti, r kad random): ";
             getline(cin, line);
             if(line.empty())break;
-            try{
-            double* nd_temp = new double[j+1];
-            for(int i=0;i<j;i++){
-                nd_temp[i]=X[s].nd[i];
-            }
+            if(line=="r"){
+                j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
                 delete[] X[s].nd;
-                X[s].nd=nd_temp;
+                X[s].nd = new double[j];
+                for(int i=0; i<j; i++){
+                    X[s].nd[i] = rand() % 10 + 1; // pazymiai 1-10
+                }
+                X[s].nd_kiek=j;
+                cout<<"Sugeneruoti "<<s+1<<" studento namu darbu pazymiai:";
+                for(int i=0;i<j;i++){
+                    cout<<" "<<X[s].nd[i];
+                }
+                cout<<endl;
+                X[s].egz=rand() % 10 + 1;
+                cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<X[s].egz<<endl;
+                random_hw = true;
+                break;
+            }
+            else {
+                try{
+                    double* nd_temp = new double[j+1];
+                    for(int i=0;i<j;i++){
+                        nd_temp[i]=X[s].nd[i];
+                    }
+                    delete[] X[s].nd;
+                    X[s].nd=nd_temp;
 
-                X[s].nd[j]=std::stod(line);
-                j++;
-
-
-        }catch(...){}
+                    X[s].nd[j]=std::stod(line);
+                    j++;
+                }catch(...){}
+            }
         }
 
-            X[s].nd_kiek=j;
-        while(true){
-            cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
-            getline(cin, line);
-            try{
-            X[s].egz=std::stod(line);
-            break;
-        }catch(...){}
-            
-    }
-    s++;
-        
-    }
+        X[s].nd_kiek = j;
+        if(!random_hw){
+            while(true){
+                cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
+                getline(cin, line);
+                try{
+                    X[s].egz=std::stod(line);
+                    break;
+                }catch(...){}
+            }
+        }
 
+        s++;
+    }
 }
 
 double Vidurkis(const Studentas* X, int x){

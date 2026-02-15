@@ -19,16 +19,35 @@ void Skaityti(vector<Studentas>& X){
         cout<<"Iveskite "<<i+1<<" studento pavarde: ";
         getline(cin, naujas.pavarde);
         int j=0;
+        bool random_hw = false;
         while(true){
-            cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+            cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti/r kad random): ";
             getline(cin, line);
             if(line.empty())break;
+            if(line=="r"){
+                j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
+                naujas.nd.clear();
+                for(int k=0; k<j; k++){
+                    naujas.nd.push_back(rand() % 10 + 1); // pazymiai 1-10
+                }
+                cout<<"Sugeneruoti "<<i+1<<" studento namu darbu pazymiai:";
+                for(int k=0;k<j;k++){
+                    cout<<" "<<naujas.nd[k];
+                }
+                cout<<endl;
+                naujas.egz=rand() % 10 + 1;
+                cout<<"Sugeneruotas "<<i+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+                random_hw = true;
+                break;
+            }
+            else{
             try{
             naujas.nd.push_back(std::stod(line));
             j++;
             }catch(...){}
-            
         }
+        }
+        if(!random_hw){
         while(true){
         cout<<"Iveskite "<<i+1<<" studento egzamino pazymi: ";
         getline(cin, line);
@@ -37,6 +56,7 @@ void Skaityti(vector<Studentas>& X){
         break;
         }catch(...){}
         }
+    }
         X.push_back(naujas);
         i++;
     }
@@ -52,12 +72,12 @@ double Vidurkis(const vector<Studentas>& X, int x){
 }
 
 double Mediana(const vector<Studentas>& X, int x){
-    sort(X[x].nd.begin(), X[x].nd.end());
-    if(X[x].nd.size()%2==0){
-        return (X[x].nd[X[x].nd.size()/2-1]+X[x].nd[X[x].nd.size()/2])/2.0;
-    }
-    else{
-        return X[x].nd[X[x].nd.size()/2];
+    std::vector<double> temp = X[x].nd;
+    std::sort(temp.begin(), temp.end());
+    if (temp.size() % 2 == 0) {
+        return (temp[temp.size()/2 - 1] + temp[temp.size()/2]) / 2.0;
+    } else {
+        return temp[temp.size()/2];
     }
 }
 
