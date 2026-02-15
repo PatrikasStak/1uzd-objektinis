@@ -84,7 +84,7 @@ double Mediana(const vector<Studentas>& X, int x){
 void Rezultatas(const vector<Studentas>& X){
     cout<<"Mediana ar vidurkis? (m/v): ";
     string pasirinkimas;
-    cin >> pasirinkimas;
+    getline(cin, pasirinkimas);
     std::transform(pasirinkimas.begin(), pasirinkimas.end(), pasirinkimas.begin(),
                [](unsigned char c){ return std::tolower(c); });
     

@@ -44,10 +44,15 @@ void Skaityti(Studentas*& X, int &s){
         int j=0;
         bool random_hw = false;
         while(true){
+            if(j==0){
             cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti, r kad random): ";
+            }
+            else{
+                cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+            }
             getline(cin, line);
             if(line.empty())break;
-            if(line=="r"){
+            if(line=="r"&&j==0){
                 j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
                 delete[] X[s].nd;
                 X[s].nd = new double[j];
@@ -117,7 +122,7 @@ double Mediana(const Studentas* X, int x){
 void Rezultatas(const Studentas* X, int s){
     cout<<"Mediana ar vidurkis? (m/v): ";
     string pasirinkimas;
-    cin >> pasirinkimas;
+    getline(cin, pasirinkimas);
     std::transform(pasirinkimas.begin(), pasirinkimas.end(), pasirinkimas.begin(),
                [](unsigned char c){ return std::tolower(c); });
     

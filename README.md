@@ -7,3 +7,4 @@
 - "išskaidytas kodas į .h ir .cpp failus" - main.cpp ir main_vector.cpp isskaidziau i lib.h func(m/v).cpp ir func(m/v).h (m- masyvai v- vektoriai), dar pridejau sort funkcija medianos funkcijose
 - "prideta random funkcija" - pridetas pasirinkimas generuoti nd ir egz pazymius studentui ivedus "r" vietoj pazymio
 - "bug fix: zsh: trace trap  ./main" - sutaisytas bugas kur main.cpp ivedus trecio studento varda gaunamas erroras zsh: trace trap  ./main
+- "bug fixai" - padariau kad random galima generauoti tik kai rasomas pirmas pazymys. Buvo bug'as kai yra pasirinkimas mediana ar vidurkis paspaudus enter nieko nevyko, dabar defaultina i vidurki. 
