@@ -1,4 +1,5 @@
 #include "funcv.h"
+#include "namesv.h"
 using std::cout;
 using std::cin;
 using std::endl;
@@ -10,53 +11,91 @@ using std::vector;
 void Skaityti(vector<Studentas>& X){
     string line;
     int i=0;
+    srand(time(0));
     while(true){
-        cout<<"Iveskite "<<i+1<<" studento varda (enter kad baigti): ";
-        getline(cin,line);
-        if(line.empty())break;
-        Studentas naujas;
-        naujas.vardas=line;
-        cout<<"Iveskite "<<i+1<<" studento pavarde: ";
-        getline(cin, naujas.pavarde);
-        int j=0;
-        bool random_hw = false;
         while(true){
-            cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti/r kad random): ";
+            cout<<"Pasirinkite kaip norite ivesti duomenis: 1 - ranka, 2 - random pazymiai, 3 - viskas random, 4 - baigti"<<endl;
             getline(cin, line);
-            if(line.empty())break;
-            if(line=="r"){
-                j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
-                naujas.nd.clear();
-                for(int k=0; k<j; k++){
-                    naujas.nd.push_back(rand() % 10 + 1); // pazymiai 1-10
+            if(line=="1" || line=="2" || line=="3" || line=="4") break;
+            cout<<"Neteisinga ivestis. Iveskite 1, 2, 3 arba 4."<<endl;
+        }
+        if(line=="4") break;
+
+        Studentas naujas;
+        if(line=="1"){
+            cout<<"Iveskite "<<i+1<<" studento varda: ";
+            getline(cin, naujas.vardas);
+            cout<<"Iveskite "<<i+1<<" studento pavarde: ";
+            getline(cin, naujas.pavarde);
+            int j=0;
+            while(true){
+                cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+                getline(cin, line);
+                if(line.empty()){
+                    if(j==0){
+                        cout<<"Reikia ivesti bent viena pazymi."<<endl;
+                        continue;
+                    }
+                    break;
                 }
-                cout<<"Sugeneruoti "<<i+1<<" studento namu darbu pazymiai:";
-                for(int k=0;k<j;k++){
-                    cout<<" "<<naujas.nd[k];
-                }
-                cout<<endl;
-                naujas.egz=rand() % 10 + 1;
-                cout<<"Sugeneruotas "<<i+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
-                random_hw = true;
-                break;
+                try{
+                    naujas.nd.push_back(std::stod(line));
+                    j++;
+                }catch(...){}
+            }
+            while(true){
+                cout<<"Iveskite "<<i+1<<" studento egzamino pazymi: ";
+                getline(cin, line);
+                try{
+                    naujas.egz = std::stod(line);
+                    break;
+                }catch(...){}
+            }
+        }
+        else if(line=="2"){
+            cout<<"Iveskite "<<i+1<<" studento varda: ";
+            getline(cin, naujas.vardas);
+            cout<<"Iveskite "<<i+1<<" studento pavarde: ";
+            getline(cin, naujas.pavarde);
+            int j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
+            for(int k=0; k<j; k++){
+                naujas.nd.push_back(rand() % 10 + 1); // pazymiai 1-10
+            }
+            cout<<"Sugeneruoti "<<i+1<<" studento namu darbu pazymiai:";
+            for(int k=0;k<j;k++){
+                cout<<" "<<naujas.nd[k];
+            }
+            cout<<endl;
+            naujas.egz=rand() % 10 + 1;
+            cout<<"Sugeneruotas "<<i+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+        }
+        else if(line=="3"){
+            int lytis = rand() % 2; // 0 - moteris ; 1 - vyras
+            if(lytis == 0){
+                int vardu_kiek = static_cast<int>(vardai_mot.size());
+                int pavardziu_kiek = static_cast<int>(pavardes_mot.size());
+                naujas.vardas = vardai_mot[rand() % vardu_kiek];
+                naujas.pavarde = pavardes_mot[rand() % pavardziu_kiek];
             }
             else{
-            try{
-            naujas.nd.push_back(std::stod(line));
-            j++;
-            }catch(...){}
+                int vardu_kiek = static_cast<int>(vardai_vyr.size());
+                int pavardziu_kiek = static_cast<int>(pavardes_vyr.size());
+                naujas.vardas = vardai_vyr[rand() % vardu_kiek];
+                naujas.pavarde = pavardes_vyr[rand() % pavardziu_kiek];
+            }
+            int j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
+            for(int k=0; k<j; k++){
+                naujas.nd.push_back(rand() % 10 + 1); // pazymiai 1-10
+            }
+            cout<<"Sugeneruotas "<<i+1<<" studento vardas ir pavardė: "<<naujas.vardas<<" "<<naujas.pavarde<<endl;
+            cout<<"Sugeneruoti "<<i+1<<" studento namu darbu pazymiai:";
+            for(int k=0;k<j;k++){
+                cout<<" "<<naujas.nd[k];
+            }
+            cout<<endl;
+            naujas.egz=rand() % 10 + 1;
+            cout<<"Sugeneruotas "<<i+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
         }
-        }
-        if(!random_hw){
-        while(true){
-        cout<<"Iveskite "<<i+1<<" studento egzamino pazymi: ";
-        getline(cin, line);
-        try{
-        naujas.egz = std::stod(line);
-        break;
-        }catch(...){}
-        }
-    }
         X.push_back(naujas);
         i++;
     }
