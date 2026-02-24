@@ -117,6 +117,33 @@ void Skaityti(vector<Studentas>& X){
 
 }
 
+void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
+    string header;
+    std::ifstream in(path);
+    std::stringstream ss;
+    ss<<in.rdbuf();
+    getline(ss, header);
+    while(true){
+        Studentas naujas;
+        if(!(ss>>naujas.vardas>>naujas.pavarde))break;
+        naujas.nd.clear();
+        for(int i=0;i<15;i++){
+            int nd;
+            if(!(ss >> nd)){
+                cout << "Klaida skaitant ND (truksta duomenu)." << endl;
+                return;
+            }
+            naujas.nd.push_back(nd);
+        }
+        if(!(ss >> naujas.egz)){
+            cout << "Klaida skaitant egzamina (truksta duomenu)." << endl;
+            return;
+        }
+        X.push_back(naujas);
+    }
+
+}
+
 double Vidurkis(const vector<Studentas>& X, int x){
     double sum=0.0;
     for(size_t i=0;i<X[x].nd.size();i++){

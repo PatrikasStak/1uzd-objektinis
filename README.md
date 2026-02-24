@@ -12,3 +12,4 @@
 -- v0.2
 - "prideta fill_n funkcija" - vietoj to, kad bruksnius rezultate printintu per loopa, panaudota fill_n funkcija
 - "studentu generavimo fix" - parinktis generuoti visus studentu duomenis (3) pakeista, kad butu galima pasirinkti kiek studentu norima sugeneruoti
+- "preliminari failo skaitymo funkcija" - galimas skaitymas is kursiokai.txt
