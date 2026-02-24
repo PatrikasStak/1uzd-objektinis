@@ -9,3 +9,5 @@
 - "bug fix: zsh: trace trap  ./main" - sutaisytas bugas kur main.cpp ivedus trecio studento varda gaunamas erroras zsh: trace trap  ./main
 - "bug fixai" - padariau kad random galima generauoti tik kai rasomas pirmas pazymys. Buvo bug'as kai yra pasirinkimas mediana ar vidurkis paspaudus enter nieko nevyko, dabar defaultina i vidurki. 
 - "padarytas menu + bug fixai" - padaryta menu kur pasirenkamas duomenu ivedimas ir darbo baigimas, pataisytas kodas kad butu butina ivesti nors 1 pazymi. Dar prideta galimybe generuoti ir vardus.
+-- v0.2
+- "prideta fill_n funkcija" - vietoj to, kad bruksnius rezultate printintu per loopa, panaudota fill_n funkcija

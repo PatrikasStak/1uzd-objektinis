@@ -144,10 +144,8 @@ void Rezultatas(const vector<Studentas>& X){
     else{
         cout<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Vid.)"<<endl;
     }
-    for(int i=0;i<w1+w2+16;i++){
-        cout<<"-";
-    }
-    cout<<endl;
+    std::fill_n(std::ostream_iterator<char>(cout), w1 + w2 + 16, '-');
+    cout << endl;
 
     if(pasirinkimas=="m"||pasirinkimas=="mediana"){
         for(int i=0;i<X.size();i++){
