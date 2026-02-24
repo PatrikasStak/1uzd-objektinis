@@ -5,8 +5,8 @@
 
 struct Studentas {
     std::string vardas, pavarde;
-    std::vector<double> nd;
-    double egz;
+    std::vector<int> nd;
+    int egz;
 
 };
 

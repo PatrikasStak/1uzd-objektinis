@@ -10,7 +10,7 @@ using std::vector;
 
 void Skaityti(vector<Studentas>& X){
     string line;
-    int i=0;
+    int s=0;
     srand(time(0));
     while(true){
         while(true){
@@ -23,13 +23,13 @@ void Skaityti(vector<Studentas>& X){
 
         Studentas naujas;
         if(line=="1"){
-            cout<<"Iveskite "<<i+1<<" studento varda: ";
+            cout<<"Iveskite "<<s+1<<" studento varda: ";
             getline(cin, naujas.vardas);
-            cout<<"Iveskite "<<i+1<<" studento pavarde: ";
+            cout<<"Iveskite "<<s+1<<" studento pavarde: ";
             getline(cin, naujas.pavarde);
             int j=0;
             while(true){
-                cout<<"Iveskite "<<i+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
+                cout<<"Iveskite "<<s+1<<" studento "<<j+1<<" namu darbu pazymi (enter kad baigti): ";
                 getline(cin, line);
                 if(line.empty()){
                     if(j==0){
@@ -44,7 +44,7 @@ void Skaityti(vector<Studentas>& X){
                 }catch(...){}
             }
             while(true){
-                cout<<"Iveskite "<<i+1<<" studento egzamino pazymi: ";
+                cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
                 getline(cin, line);
                 try{
                     naujas.egz = std::stod(line);
@@ -53,23 +53,33 @@ void Skaityti(vector<Studentas>& X){
             }
         }
         else if(line=="2"){
-            cout<<"Iveskite "<<i+1<<" studento varda: ";
+            cout<<"Iveskite "<<s+1<<" studento varda: ";
             getline(cin, naujas.vardas);
-            cout<<"Iveskite "<<i+1<<" studento pavarde: ";
+            cout<<"Iveskite "<<s+1<<" studento pavarde: ";
             getline(cin, naujas.pavarde);
             int j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
             for(int k=0; k<j; k++){
                 naujas.nd.push_back(rand() % 10 + 1); // pazymiai 1-10
             }
-            cout<<"Sugeneruoti "<<i+1<<" studento namu darbu pazymiai:";
+            cout<<"Sugeneruoti "<<s+1<<" studento namu darbu pazymiai:";
             for(int k=0;k<j;k++){
                 cout<<" "<<naujas.nd[k];
             }
             cout<<endl;
             naujas.egz=rand() % 10 + 1;
-            cout<<"Sugeneruotas "<<i+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+            cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
         }
         else if(line=="3"){
+            int kiek;
+            cout<<"Kiek studentų norite sugeneruoti? ";
+            while(!(cin>>kiek)){
+                cout<<"Iveskite sveika skaiciu. Bandykite dar karta: ";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout<<endl;
+            for(int i=0;i<kiek;i++){
             int lytis = rand() % 2; // 0 - moteris ; 1 - vyras
             if(lytis == 0){
                 int vardu_kiek = static_cast<int>(vardai_mot.size());
@@ -87,17 +97,22 @@ void Skaityti(vector<Studentas>& X){
             for(int k=0; k<j; k++){
                 naujas.nd.push_back(rand() % 10 + 1); // pazymiai 1-10
             }
-            cout<<"Sugeneruotas "<<i+1<<" studento vardas ir pavardė: "<<naujas.vardas<<" "<<naujas.pavarde<<endl;
-            cout<<"Sugeneruoti "<<i+1<<" studento namu darbu pazymiai:";
+            cout<<"Sugeneruotas "<<s+1<<" studento vardas ir pavardė: "<<naujas.vardas<<" "<<naujas.pavarde<<endl;
+            cout<<"Sugeneruoti "<<s+1<<" studento namu darbu pazymiai:";
             for(int k=0;k<j;k++){
                 cout<<" "<<naujas.nd[k];
             }
             cout<<endl;
             naujas.egz=rand() % 10 + 1;
-            cout<<"Sugeneruotas "<<i+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+            cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+            X.push_back(naujas);
+            s++;
         }
+    }
+    if(line!="3"){
         X.push_back(naujas);
-        i++;
+        s++;
+    }
     }
 
 }
@@ -111,7 +126,7 @@ double Vidurkis(const vector<Studentas>& X, int x){
 }
 
 double Mediana(const vector<Studentas>& X, int x){
-    std::vector<double> temp = X[x].nd;
+    std::vector<int> temp = X[x].nd;
     std::sort(temp.begin(), temp.end());
     if (temp.size() % 2 == 0) {
         return (temp[temp.size()/2 - 1] + temp[temp.size()/2]) / 2.0;

@@ -32,7 +32,7 @@ void Skaityti(Studentas*& X, int &s){
             temp[i].nd_kiek = X[i].nd_kiek;
             temp[i].egz = X[i].egz;
             if(X[i].nd_kiek > 0){
-                temp[i].nd = new double[X[i].nd_kiek];
+                temp[i].nd = new int[X[i].nd_kiek];
                 for(int k=0; k<X[i].nd_kiek; k++){
                     temp[i].nd[k] = X[i].nd[k];
                 }
@@ -61,7 +61,7 @@ void Skaityti(Studentas*& X, int &s){
                 break;
             }
             try{
-                double* nd_temp = new double[j+1];
+                int* nd_temp = new int[j+1];
                 for(int i=0;i<j;i++){
                     nd_temp[i]=X[s].nd[i];
                 }
@@ -91,7 +91,7 @@ void Skaityti(Studentas*& X, int &s){
             temp[i].nd_kiek = X[i].nd_kiek;
             temp[i].egz = X[i].egz;
             if(X[i].nd_kiek > 0){
-                temp[i].nd = new double[X[i].nd_kiek];
+                temp[i].nd = new int[X[i].nd_kiek];
                 for(int k=0; k<X[i].nd_kiek; k++){
                     temp[i].nd[k] = X[i].nd[k];
                 }
@@ -108,7 +108,7 @@ void Skaityti(Studentas*& X, int &s){
         X[s].nd_kiek = 0;
         int j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
         delete[] X[s].nd;
-        X[s].nd = new double[j];
+        X[s].nd = new int[j];
         for(int i=0; i<j; i++){
             X[s].nd[i] = rand() % 10 + 1; // pazymiai 1-10
         }
@@ -122,6 +122,16 @@ void Skaityti(Studentas*& X, int &s){
         cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<X[s].egz<<endl;
     }
     else if(line=="3"){
+        int kiek;
+            cout<<"Kiek studentų norite sugeneruoti? ";
+            while(!(cin>>kiek)){
+                cout<<"Iveskite sveika skaiciu. Bandykite dar karta: ";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout<<endl;
+            for(int i=0;i<kiek;i++){
                 Studentas* temp = new Studentas[s+1];
         for(int i=0; i<s; i++){
             temp[i].vardas = X[i].vardas;
@@ -129,7 +139,7 @@ void Skaityti(Studentas*& X, int &s){
             temp[i].nd_kiek = X[i].nd_kiek;
             temp[i].egz = X[i].egz;
             if(X[i].nd_kiek > 0){
-                temp[i].nd = new double[X[i].nd_kiek];
+                temp[i].nd = new int[X[i].nd_kiek];
                 for(int k=0; k<X[i].nd_kiek; k++){
                     temp[i].nd[k] = X[i].nd[k];
                 }
@@ -153,7 +163,7 @@ void Skaityti(Studentas*& X, int &s){
 
        int j = rand() % 10 + 1; // 1-10 namu darbu pazymiu
         delete[] X[s].nd;
-        X[s].nd = new double[j];
+        X[s].nd = new int[j];
         for(int i=0; i<j; i++){
             X[s].nd[i] = rand() % 10 + 1; // pazymiai 1-10
         }
@@ -166,9 +176,12 @@ void Skaityti(Studentas*& X, int &s){
         cout<<endl;
         X[s].egz=rand() % 10 + 1;
         cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<X[s].egz<<endl;
+        s++;
+    }
     }
     else if(line=="4")break;
-    s++;
+    if(line!="3")s++;
+    
 }
 }
 

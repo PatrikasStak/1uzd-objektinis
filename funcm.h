@@ -5,9 +5,9 @@
 
 struct Studentas {
     std::string vardas, pavarde;
-    double* nd = nullptr;
+    int* nd = nullptr;
     int nd_kiek = 0;
-    double egz;
+    int egz;
     ~Studentas() { delete[] nd; }
 };
 
