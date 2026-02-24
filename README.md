@@ -15,3 +15,6 @@
 - "preliminari failo skaitymo funkcija" - galimas skaitymas is kursiokai.txt
 - "dinaminis nd kiekis" - dabar skaitoma ne butinai 15 nd failai, programa issiaiskina kiek nd tures studentai is pagal pirma eilute
 - "pridetos rikiavimo funkcijos" - galima rikiuoti pagal varda, pavarde, galutinius rezultatus, dar prideta funkcija kuri i struct sudeda galutinius rezultatus
+------------
+Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
+------------
