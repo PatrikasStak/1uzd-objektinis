@@ -5,7 +5,11 @@ int main() {
     std::vector<Studentas> A;
     std::cout<<"1 - vesti ranka, 2 - skaityti iš failo: ";
     std::string choice;
+    while(true){
     getline(std::cin, choice);
+    if(choice=="1"||choice=="2")break;
+    std::cout<<"Neteisinga ivestis, bandykite dar karta: ";
+    }
     if(choice=="1"){
     Skaityti(A);
     Rezultatas(A);

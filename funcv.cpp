@@ -99,6 +99,7 @@ void Skaityti(vector<Studentas>& X){
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cout<<endl;
             for(int i=0;i<kiek;i++){
+            naujas.nd.clear();
             int lytis = rand() % 2; // 0 - moteris ; 1 - vyras
             if(lytis == 0){
                 int vardu_kiek = static_cast<int>(vardai_mot.size());
@@ -184,23 +185,6 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
 
 }
 
-double Vidurkis(const vector<Studentas>& X, int x){
-    double sum=0.0;
-    for(size_t i=0;i<X[x].nd.size();i++){
-        sum+=X[x].nd[i];
-    }
-    return sum/X[x].nd.size();
-}
-
-double Mediana(const vector<Studentas>& X, int x){
-    std::vector<int> temp = X[x].nd;
-    std::sort(temp.begin(), temp.end());
-    if (temp.size() % 2 == 0) {
-        return (temp[temp.size()/2 - 1] + temp[temp.size()/2]) / 2.0;
-    } else {
-        return temp[temp.size()/2];
-    }
-}
 
 void Rezultatas(vector<Studentas>& X){
     if(X.empty()){
@@ -218,21 +202,21 @@ void Rezultatas(vector<Studentas>& X){
 
     if(choice=="1"){
         std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
-            if(a.vardas == b.vardas) return a.pavarde < b.pavarde;
-            return a.vardas < b.vardas;
+            if(a.vardas == b.vardas) return a.pavarde > b.pavarde;
+            return a.vardas > b.vardas;
         });
     } else if(choice=="2"){
         std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
-            if(a.pavarde == b.pavarde) return a.vardas < b.vardas;
-            return a.pavarde < b.pavarde;
+            if(a.pavarde == b.pavarde) return a.vardas > b.vardas;
+            return a.pavarde > b.pavarde;
         });
     } else if(choice=="3"){
         std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
-            return a.galutinis_vid < b.galutinis_vid;
+            return a.galutinis_vid > b.galutinis_vid;
         });
     } else if(choice=="4"){
         std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
-            return a.galutinis_med < b.galutinis_med;
+            return a.galutinis_med > b.galutinis_med;
         });
     }
 
@@ -291,21 +275,21 @@ void RezultatasFailo(vector<Studentas>& X){
 
     if(choice=="1"){
         std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
-            if(a.vardas == b.vardas) return a.pavarde < b.pavarde;
-            return a.vardas < b.vardas;
+            if(a.vardas == b.vardas) return a.pavarde > b.pavarde;
+            return a.vardas > b.vardas;
         });
     } else if(choice=="2"){
         std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
-            if(a.pavarde == b.pavarde) return a.vardas < b.vardas;
-            return a.pavarde < b.pavarde;
+            if(a.pavarde == b.pavarde) return a.vardas > b.vardas;
+            return a.pavarde > b.pavarde;
         });
     } else if(choice=="3"){
         std::sort(X.begin(), X.end(), [&](const Studentas& a, const Studentas& b){
-            return a.galutinis_vid < b.galutinis_vid;
+            return a.galutinis_vid > b.galutinis_vid;
         });
     } else if(choice=="4"){
         std::sort(X.begin(), X.end(), [&](const Studentas& a, const Studentas& b){
-            return a.galutinis_med < b.galutinis_med;
+            return a.galutinis_med > b.galutinis_med;
         });
     }
 
