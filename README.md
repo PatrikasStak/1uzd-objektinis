@@ -14,3 +14,4 @@
 - "studentu generavimo fix" - parinktis generuoti visus studentu duomenis (3) pakeista, kad butu galima pasirinkti kiek studentu norima sugeneruoti
 - "preliminari failo skaitymo funkcija" - galimas skaitymas is kursiokai.txt
 - "dinaminis nd kiekis" - dabar skaitoma ne butinai 15 nd failai, programa issiaiskina kiek nd tures studentai is pagal pirma eilute
+- "pridetos rikiavimo funkcijos" - galima rikiuoti pagal varda, pavarde, galutinius rezultatus, dar prideta funkcija kuri i struct sudeda galutinius rezultatus

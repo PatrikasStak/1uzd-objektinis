@@ -14,7 +14,7 @@ int main() {
         std::cout<<"Kokį failą norite skaityti? ";
         getline(std::cin, choice);
         SkaitytiFaila(A,choice);
-        Rezultatas(A);
+        RezultatasFailo(A);
     }
     return 0;
 }

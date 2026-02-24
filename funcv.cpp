@@ -8,6 +8,23 @@ using std::left;
 using std::setw;
 using std::vector;
 
+static void SkaiciuotiGalutinius(Studentas& s){
+    double sum = 0.0;
+    for(size_t i=0;i<s.nd.size();i++) sum += s.nd[i];
+    double avg = sum / s.nd.size();
+    s.galutinis_vid = avg * 0.4 + s.egz * 0.6;
+
+    std::vector<int> temp = s.nd;
+    std::sort(temp.begin(), temp.end());
+    double med;
+    if(temp.size() % 2 == 0){
+        med = (temp[temp.size()/2 - 1] + temp[temp.size()/2]) / 2.0;
+    } else {
+        med = temp[temp.size()/2];
+    }
+    s.galutinis_med = med * 0.4 + s.egz * 0.6;
+}
+
 void Skaityti(vector<Studentas>& X){
     string line;
     int s=0;
@@ -51,6 +68,7 @@ void Skaityti(vector<Studentas>& X){
                     break;
                 }catch(...){}
             }
+            SkaiciuotiGalutinius(naujas);
         }
         else if(line=="2"){
             cout<<"Iveskite "<<s+1<<" studento varda: ";
@@ -68,6 +86,7 @@ void Skaityti(vector<Studentas>& X){
             cout<<endl;
             naujas.egz=rand() % 10 + 1;
             cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+            SkaiciuotiGalutinius(naujas);
         }
         else if(line=="3"){
             int kiek;
@@ -105,11 +124,13 @@ void Skaityti(vector<Studentas>& X){
             cout<<endl;
             naujas.egz=rand() % 10 + 1;
             cout<<"Sugeneruotas "<<s+1<<" studento egzamino pazymys: "<<naujas.egz<<endl;
+            SkaiciuotiGalutinius(naujas);
             X.push_back(naujas);
             s++;
         }
     }
     if(line!="3"){
+        SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
         s++;
     }
@@ -157,6 +178,7 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
             std::cerr << "Klaida skaitant egzamina (truksta duomenu)." << endl;
             return;
         }
+        SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
     }
 
@@ -180,7 +202,40 @@ double Mediana(const vector<Studentas>& X, int x){
     }
 }
 
-void Rezultatas(const vector<Studentas>& X){
+void Rezultatas(vector<Studentas>& X){
+    if(X.empty()){
+        cout << "Nera duomenu." << endl;
+        return;
+    }
+
+    string choice;
+    cout<<"Pasirinkite rikiavimą: 1 - pagal vardą, 2 - pagal pavardę, 3 - pagal galutinį balą(vidurkio), 4 - pagal galutinį balą(medianos)"<<endl;
+    while(true){
+        getline(cin, choice);
+        if(choice=="1" || choice=="2" || choice=="3" || choice=="4") break;
+        cout<<"Neteisinga įvestis, bandykite dar kartą: ";
+    }
+
+    if(choice=="1"){
+        std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
+            if(a.vardas == b.vardas) return a.pavarde < b.pavarde;
+            return a.vardas < b.vardas;
+        });
+    } else if(choice=="2"){
+        std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
+            if(a.pavarde == b.pavarde) return a.vardas < b.vardas;
+            return a.pavarde < b.pavarde;
+        });
+    } else if(choice=="3"){
+        std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
+            return a.galutinis_vid < b.galutinis_vid;
+        });
+    } else if(choice=="4"){
+        std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
+            return a.galutinis_med < b.galutinis_med;
+        });
+    }
+
     cout<<"Mediana ar vidurkis? (m/v): ";
     string pasirinkimas;
     getline(cin, pasirinkimas);
@@ -209,13 +264,73 @@ void Rezultatas(const vector<Studentas>& X){
 
     if(pasirinkimas=="m"||pasirinkimas=="mediana"){
         for(int i=0;i<X.size();i++){
-            cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<Mediana(X,i)*0.4+X[i].egz*0.6<<endl;
+            cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med<<endl;
         }
     }
     else{
     for(int i=0;i<X.size();i++){
-        cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<Vidurkis(X,i)*0.4+X[i].egz*0.6<<endl;
+        cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
     }
     }
 
+}
+
+void RezultatasFailo(vector<Studentas>& X){
+    if(X.empty()){
+        cout << "Nera duomenu rikiavimui." << endl;
+        return;
+    }
+
+    string choice;
+    cout<<"Pasirinkite rikiavimą: 1 - pagal vardą, 2 - pagal pavardę, 3 - pagal galutinį balą(vidurkio), 4 - pagal galutinį balą(medianos)"<<endl;
+    while(true){
+        getline(cin, choice);
+        if(choice=="1" || choice=="2" || choice=="3" || choice=="4") break;
+        cout<<"Neteisinga įvestis, bandykite dar kartą: ";
+    }
+
+    if(choice=="1"){
+        std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
+            if(a.vardas == b.vardas) return a.pavarde < b.pavarde;
+            return a.vardas < b.vardas;
+        });
+    } else if(choice=="2"){
+        std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b){
+            if(a.pavarde == b.pavarde) return a.vardas < b.vardas;
+            return a.pavarde < b.pavarde;
+        });
+    } else if(choice=="3"){
+        std::sort(X.begin(), X.end(), [&](const Studentas& a, const Studentas& b){
+            return a.galutinis_vid < b.galutinis_vid;
+        });
+    } else if(choice=="4"){
+        std::sort(X.begin(), X.end(), [&](const Studentas& a, const Studentas& b){
+            return a.galutinis_med < b.galutinis_med;
+        });
+    }
+
+    size_t w1 = string("Vardas").size();
+    size_t w2 = string("Pavarde").size();
+    for(int i=0;i<X.size();++i){
+        w1=std::max(w1, X[i].vardas.size());
+        w2=std::max(w2, X[i].pavarde.size());
+    }
+    w1+=2;
+    w2+=2;
+
+    cout<<left<<setw(w1)<<"Vardas"
+        <<setw(w2)<<"Pavarde"
+        <<setw(16)<<"Galutinis (Vid.)"
+        <<setw(16)<<"Galutinis (Med.)"
+        <<endl;
+    std::fill_n(std::ostream_iterator<char>(cout), w1 + w2 + 32, '-');
+    cout << endl;
+
+    for(int i=0;i<X.size();i++){
+        cout<<left<<setw(w1)<<X[i].vardas
+            <<setw(w2)<<X[i].pavarde
+            <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid
+            <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med
+            <<endl;
+    }
 }
