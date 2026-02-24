@@ -11,7 +11,9 @@ int main() {
     Rezultatas(A);
     }
     else if(choice=="2"){
-        SkaitytiFaila(A,"kursiokai.txt");
+        std::cout<<"Kokį failą norite skaityti? ";
+        getline(std::cin, choice);
+        SkaitytiFaila(A,choice);
         Rezultatas(A);
     }
     return 0;

@@ -120,23 +120,41 @@ void Skaityti(vector<Studentas>& X){
 void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
     string header;
     std::ifstream in(path);
+    if(!in){
+        std::cerr<<"Nepavyko atidaryti failo: "<<path<<endl;
+        return;
+    }
     std::stringstream ss;
     ss<<in.rdbuf();
     getline(ss, header);
+
+    std::stringstream hs(header);
+    string token;
+    int ndCount = 0;
+    while(hs >> token){
+        if(token.rfind("ND", 0) == 0){
+            ndCount++;
+        }
+    }
+    if(ndCount == 0){
+        std::cerr << "Nepavyko nustatyti ND stulpeliu skaiciaus is antrastes." << endl;
+        return;
+    }
+
     while(true){
         Studentas naujas;
         if(!(ss>>naujas.vardas>>naujas.pavarde))break;
         naujas.nd.clear();
-        for(int i=0;i<15;i++){
+        for(int i=0;i<ndCount;i++){
             int nd;
             if(!(ss >> nd)){
-                cout << "Klaida skaitant ND (truksta duomenu)." << endl;
+                std::cerr << "Klaida skaitant ND (truksta duomenu)." << endl;
                 return;
             }
             naujas.nd.push_back(nd);
         }
         if(!(ss >> naujas.egz)){
-            cout << "Klaida skaitant egzamina (truksta duomenu)." << endl;
+            std::cerr << "Klaida skaitant egzamina (truksta duomenu)." << endl;
             return;
         }
         X.push_back(naujas);
