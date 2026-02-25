@@ -18,3 +18,4 @@
 ------------
 Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
 ------------
+- "pridetas rasymas i faila" - galima pasirinkti rezultatus rasyti i rez.txt, terminala arba abu

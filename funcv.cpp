@@ -188,8 +188,25 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
 
 void Rezultatas(vector<Studentas>& X){
     if(X.empty()){
-        cout << "Nera duomenu." << endl;
+        std::cerr << "Nera duomenu." << endl;
         return;
+    }
+
+    cout<<"Kur isvesti rezultatus? 1 - i konsole, 2 - i rez.txt, 3 - i abu"<<endl;
+    string out_choice;
+    while(true){
+        getline(cin, out_choice);
+        if(out_choice=="1" || out_choice=="2" || out_choice=="3") break;
+        std::cerr<<"Neteisinga įvestis, bandykite dar kartą: ";
+    }
+
+    std::ofstream file;
+    if(out_choice=="2" || out_choice=="3"){
+        file.open("rez.txt");
+        if(!file){
+            std::cerr << "Nepavyko atidaryti failo: rez.txt" << endl;
+            return;
+        }
     }
 
     string choice;
@@ -197,7 +214,7 @@ void Rezultatas(vector<Studentas>& X){
     while(true){
         getline(cin, choice);
         if(choice=="1" || choice=="2" || choice=="3" || choice=="4") break;
-        cout<<"Neteisinga įvestis, bandykite dar kartą: ";
+        std::cerr<<"Neteisinga įvestis, bandykite dar kartą: ";
     }
 
     if(choice=="1"){
@@ -237,32 +254,60 @@ void Rezultatas(vector<Studentas>& X){
     w1+=2;
     w2+=2;
     
-    if(pasirinkimas=="m"||pasirinkimas=="mediana"){
-        cout<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Med.)"<<endl;
-    }
-    else{
-        cout<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Vid.)"<<endl;
-    }
-    std::fill_n(std::ostream_iterator<char>(cout), w1 + w2 + 16, '-');
-    cout << endl;
-
-    if(pasirinkimas=="m"||pasirinkimas=="mediana"){
-        for(int i=0;i<X.size();i++){
-            cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med<<endl;
+    auto spausdinti = [&](std::ostream& os){
+        if(pasirinkimas=="m"||pasirinkimas=="mediana"){
+            os<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Med.)"<<endl;
         }
-    }
-    else{
-    for(int i=0;i<X.size();i++){
-        cout<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
-    }
+        else{
+            os<<left<<setw(w1)<<"Vardas"<<setw(w2)<<"Pavarde"<<setw(12)<<"Galutinis (Vid.)"<<endl;
+        }
+        std::fill_n(std::ostream_iterator<char>(os), w1 + w2 + 16, '-');
+        os << endl;
+
+        if(pasirinkimas=="m"||pasirinkimas=="mediana"){
+            for(int i=0;i<X.size();i++){
+                os<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med<<endl;
+            }
+        }
+        else{
+            for(int i=0;i<X.size();i++){
+                os<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
+            }
+        }
+    };
+
+    if(out_choice=="1"){
+        spausdinti(cout);
+    } else if(out_choice=="2"){
+        spausdinti(file);
+    } else {
+        spausdinti(cout);
+        spausdinti(file);
     }
 
 }
 
 void RezultatasFailo(vector<Studentas>& X){
     if(X.empty()){
-        cout << "Nera duomenu rikiavimui." << endl;
+        std::cerr << "Nera duomenu rikiavimui." << endl;
         return;
+    }
+
+    cout<<"Kur isvesti rezultatus? 1 - i konsole, 2 - i rez.txt, 3 - i abu"<<endl;
+    string out_choice;
+    while(true){
+        getline(cin, out_choice);
+        if(out_choice=="1" || out_choice=="2" || out_choice=="3") break;
+        std::cerr<<"Neteisinga įvestis, bandykite dar kartą: ";
+    }
+
+    std::ofstream file;
+    if(out_choice=="2" || out_choice=="3"){
+        file.open("rez.txt");
+        if(!file){
+            std::cerr << "Nepavyko atidaryti failo: rez.txt" << endl;
+            return;
+        }
     }
 
     string choice;
@@ -270,7 +315,7 @@ void RezultatasFailo(vector<Studentas>& X){
     while(true){
         getline(cin, choice);
         if(choice=="1" || choice=="2" || choice=="3" || choice=="4") break;
-        cout<<"Neteisinga įvestis, bandykite dar kartą: ";
+        std::cerr<<"Neteisinga įvestis, bandykite dar kartą: ";
     }
 
     if(choice=="1"){
@@ -302,19 +347,30 @@ void RezultatasFailo(vector<Studentas>& X){
     w1+=2;
     w2+=2;
 
-    cout<<left<<setw(w1)<<"Vardas"
-        <<setw(w2)<<"Pavarde"
-        <<setw(16)<<"Galutinis (Vid.)"
-        <<setw(16)<<"Galutinis (Med.)"
-        <<endl;
-    std::fill_n(std::ostream_iterator<char>(cout), w1 + w2 + 32, '-');
-    cout << endl;
+    auto spausdinti = [&](std::ostream& os){
+        os<<left<<setw(w1)<<"Vardas"
+          <<setw(w2)<<"Pavarde"
+          <<setw(16)<<"Galutinis (Vid.)"
+          <<setw(16)<<"Galutinis (Med.)"
+          <<endl;
+        std::fill_n(std::ostream_iterator<char>(os), w1 + w2 + 32, '-');
+        os << endl;
 
-    for(int i=0;i<X.size();i++){
-        cout<<left<<setw(w1)<<X[i].vardas
-            <<setw(w2)<<X[i].pavarde
-            <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid
-            <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med
-            <<endl;
+        for(int i=0;i<X.size();i++){
+            os<<left<<setw(w1)<<X[i].vardas
+              <<setw(w2)<<X[i].pavarde
+              <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid
+              <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med
+              <<endl;
+        }
+    };
+
+    if(out_choice=="1"){
+        spausdinti(cout);
+    } else if(out_choice=="2"){
+        spausdinti(file);
+    } else {
+        spausdinti(cout);
+        spausdinti(file);
     }
 }
