@@ -25,3 +25,4 @@ Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
 - "failo pasirinkimo error pataisymas" - anksčiau kai būdavo įvestas neteisingas failas, programa sustodavo, dabar leidžia įvesti vėl
 - "catch pataisymai" - dabar catch gaudo specifinius errorus vietoj ... ir išveda žinute kai sugauna errora
 - "egzamino pazymio tikrinimas" - tikrinama ar egzamino pazymis yra 0-10
+- "namu darbu pazymio tikrinimas" - tikrinama ar namu darbu pazymis yra 0-10
