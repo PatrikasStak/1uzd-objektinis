@@ -17,10 +17,21 @@ int main() {
     else if(choice=="2"){
         std::cout<<"Kokį failą norite skaityti? ";
         system("ls -1 *.txt | grep -v '^rez.txt$'");
-        getline(std::cin, choice);
         auto t1 = std::chrono::high_resolution_clock::now();
-        SkaitytiFaila(A,choice);
         auto t2 = std::chrono::high_resolution_clock::now();
+        while (true){
+            getline(std::cin, choice);
+            A.clear();
+            t1 = std::chrono::high_resolution_clock::now();
+            if(SkaitytiFaila(A,choice)){
+                t2 = std::chrono::high_resolution_clock::now();
+                break;
+            }
+            system("ls -1 *.txt | grep -v '^rez.txt$'");
+            std::cerr<<"Bandykite įvesti failo pavadinima vėl: ";
+
+            
+        }
         RezultatasFailo(A);
         std::chrono::duration<double> dt = t2 - t1;
         std::cout << "Laikas: " <<std::fixed<<std::setprecision(5)<< dt.count() << " s\n";

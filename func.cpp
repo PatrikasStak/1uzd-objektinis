@@ -139,12 +139,12 @@ void Skaityti(vector<Studentas>& X){
 
 }
 
-void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
+bool SkaitytiFaila(vector<Studentas>& X, const std::string& path){
     string header;
     std::ifstream in(path);
     if(!in){
         std::cerr<<"Nepavyko atidaryti failo: "<<path<<endl;
-        return;
+        return false;
     }
     std::stringstream ss;
     ss<<in.rdbuf();
@@ -160,7 +160,7 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
     }
     if(ndCount == 0){
         std::cerr << "Nepavyko nustatyti ND stulpeliu skaiciaus is antrastes." << endl;
-        return;
+        return false;
     }
 
     while(true){
@@ -171,17 +171,18 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
             int nd;
             if(!(ss >> nd)){
                 std::cerr << "Klaida skaitant ND (truksta duomenu)." << endl;
-                return;
+                return false;
             }
             naujas.nd.push_back(nd);
         }
         if(!(ss >> naujas.egz)){
             std::cerr << "Klaida skaitant egzamina (truksta duomenu)." << endl;
-            return;
+            return false;
         }
         SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
     }
+    return true;
 
 }
 
