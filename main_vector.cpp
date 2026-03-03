@@ -16,6 +16,7 @@ int main() {
     }
     else if(choice=="2"){
         std::cout<<"Kokį failą norite skaityti? ";
+        system("ls -1 *.txt | grep -v '^rez.txt$'");
         getline(std::cin, choice);
         auto t1 = std::chrono::high_resolution_clock::now();
         SkaitytiFaila(A,choice);
