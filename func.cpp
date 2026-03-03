@@ -58,7 +58,12 @@ void Skaityti(vector<Studentas>& X){
                 try{
                     naujas.nd.push_back(std::stoi(line));
                     j++;
-                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą";}
+                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą"<<endl;
+                continue;}
+                if(naujas.nd[j-1]>=0&&naujas.nd[j-1]<=10)break;
+                else {
+                    cout<<"Namu darbu pazymis nera 0-10, bandykite dar karta"<<endl;
+                }
                 
             }
             while(true){
