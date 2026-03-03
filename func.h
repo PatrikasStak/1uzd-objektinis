@@ -1,5 +1,5 @@
-#ifndef FUNCV_H
-#define FUNCV_H
+#ifndef FUNC_H
+#define FUNC_H
 
 #include "lib.h"
 

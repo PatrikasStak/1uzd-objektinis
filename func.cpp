@@ -1,4 +1,4 @@
-#include "funcv.h"
+#include "func.h"
 #include "namesv.h"
 using std::cout;
 using std::cin;
