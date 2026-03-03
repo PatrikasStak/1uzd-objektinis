@@ -58,7 +58,8 @@ void Skaityti(vector<Studentas>& X){
                 try{
                     naujas.nd.push_back(std::stoi(line));
                     j++;
-                }catch(...){}
+                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą";}
+                
             }
             while(true){
                 cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
@@ -66,7 +67,7 @@ void Skaityti(vector<Studentas>& X){
                 try{
                     naujas.egz = std::stoi(line);
                     break;
-                }catch(...){}
+                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą";}
             }
             SkaiciuotiGalutinius(naujas);
         }
