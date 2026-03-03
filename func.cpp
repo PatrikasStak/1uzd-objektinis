@@ -56,7 +56,7 @@ void Skaityti(vector<Studentas>& X){
                     break;
                 }
                 try{
-                    naujas.nd.push_back(std::stod(line));
+                    naujas.nd.push_back(std::stoi(line));
                     j++;
                 }catch(...){}
             }
@@ -64,7 +64,7 @@ void Skaityti(vector<Studentas>& X){
                 cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
                 getline(cin, line);
                 try{
-                    naujas.egz = std::stod(line);
+                    naujas.egz = std::stoi(line);
                     break;
                 }catch(...){}
             }
