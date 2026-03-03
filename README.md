@@ -21,3 +21,4 @@ Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
 - "pridetas rasymas i faila" - galima pasirinkti rezultatus rasyti i rez.txt, terminala arba abu
 - "pataisyta system isvestis renkantis failus" - neberodoma rez.txt
 - "panaikinti masyvu failai" - panaikinau failus kurie dirba su masyvais kadangi dabar naudojami tik failai su vektoriais
+- "pervardinti failai" - failai pervardinti i trumpesnius pavadinimus

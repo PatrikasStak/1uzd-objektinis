@@ -1,5 +1,5 @@
 #include "func.h"
-#include "namesv.h"
+#include "names.h"
 using std::cout;
 using std::cin;
 using std::endl;
