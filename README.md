@@ -22,3 +22,4 @@ Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
 - "pataisyta system isvestis renkantis failus" - neberodoma rez.txt
 - "panaikinti masyvu failai" - panaikinau failus kurie dirba su masyvais kadangi dabar naudojami tik failai su vektoriais
 - "pervardinti failai" - failai pervardinti i trumpesnius pavadinimus
+- "failo pasirinkimo error pataisymas" - anksčiau kai būdavo įvestas neteisingas failas, programa sustodavo, dabar leidžia įvesti vėl
