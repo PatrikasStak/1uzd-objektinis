@@ -66,8 +66,12 @@ void Skaityti(vector<Studentas>& X){
                 getline(cin, line);
                 try{
                     naujas.egz = std::stoi(line);
-                    break;
-                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą";}
+                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą"<<endl;
+                continue;}
+                if(naujas.egz>=0&&naujas.egz<=10)break;
+                else {
+                    cout<<"Egzamino pazymis nera 0-10, bandykite dar karta"<<endl;
+                }
             }
             SkaiciuotiGalutinius(naujas);
         }
