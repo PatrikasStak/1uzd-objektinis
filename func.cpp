@@ -60,9 +60,10 @@ void Skaityti(vector<Studentas>& X){
                     j++;
                 }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą"<<endl;
                 continue;}
-                if(naujas.nd[j-1]>=0&&naujas.nd[j-1]<=10)break;
+                if(naujas.nd[j-1]>=0&&naujas.nd[j-1]<=10)continue;
                 else {
                     cout<<"Namu darbu pazymis nera 0-10, bandykite dar karta"<<endl;
+                    j--;
                 }
                 
             }
