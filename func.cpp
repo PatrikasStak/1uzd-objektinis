@@ -159,6 +159,7 @@ bool SkaitytiFaila(vector<Studentas>& X, const std::string& path){
     }
     std::stringstream ss;
     ss<<in.rdbuf();
+    in.close();
     getline(ss, header);
 
     std::stringstream hs(header);
