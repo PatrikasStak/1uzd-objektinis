@@ -403,3 +403,43 @@ void RezultatasFailo(vector<Studentas>& X){
         spausdinti(file);
     }
 }
+
+void FailuGeneravimas(int nd){
+    std::ofstream k1("generuoti1000.txt");
+    std::ofstream k10("generuoti10000.txt");
+    std::ofstream k100("generuoti100000.txt");
+    std::ofstream m1("generuoti1000000.txt");
+    std::ofstream m10("generuoti10000000.txt");
+    
+    auto writeHeader = [](std::ostream& out, int x) {
+    out << left<<setw(25)<<"Vardas"<<setw(25)<<"Pavarde";
+    for(int i=0;i<x;i++){
+        out<<setw(10)<<("ND"+std::to_string(i+1));
+    }
+    out<<setw(10)<<"Egz."<<endl;
+    };
+
+    auto writeStud = [](std::ostream& out, int x, int k){
+        int random;
+        for(int i=0;i<k;i++){
+            
+            out<<left<<setw(25)<<("Vardas" + std::to_string(i+1))<<setw(25)<<("Pavarde"+ std::to_string(i+1));
+            for(int j=0;j<x;j++){
+                random = rand() % 10 + 1;
+                out<<setw(10)<<random;
+            }
+            random = rand() % 10 + 1;
+            out<<setw(10)<<random<<endl;
+        }
+    };
+
+    writeHeader(k1, nd);
+    writeHeader(k10, nd);
+    writeHeader(k100, nd);
+    writeHeader(m1, nd);
+    writeHeader(m10, nd);
+
+    
+
+
+}
