@@ -434,9 +434,17 @@ void FailuGeneravimas(){
     };
 
     int nd;
-    cout<<"Kiek nd? ";
-    cin>>nd;//change to getline for error catching
-
+    string line;
+    while(true){
+    cout<<"Iveskite norima ND skaiciu: ";
+    getline(cin, line);
+    try{
+        nd=stoi(line);
+    }catch(const std::invalid_argument){std::cerr<<"Tai nera skaicius, bandykite dar karta!"<<endl;
+    continue;}
+    if(nd<=0)std::cerr<<"Turi buti bent 1 ND"<<endl;
+    else break;
+    }
     writeHeader(k1, nd);
     writeStud(k1, nd, 1000);
     writeHeader(k10, nd);
@@ -455,5 +463,75 @@ void FailuGeneravimas(){
     k100.close();
     m1.close();
     m10.close();
+
+}
+
+void GeneruotuRusiavimas(string path){
+    std::ifstream in(path);
+    vector<Studentas> maladiec;
+    vector<Studentas> vargsai;
+    string header;
+    std::stringstream ss;
+    ss<<in.rdbuf();
+    in.close();
+    getline(ss, header);
+
+    std::stringstream hs(header);
+    string token;
+    int ndCount = 0;
+    while(hs >> token){
+        if(token.rfind("ND", 0) == 0){
+            ndCount++;
+        }
+    }
+    
+    while(true){
+        Studentas naujas;
+        if(!(ss>>naujas.vardas>>naujas.pavarde))break;
+        naujas.nd.clear();
+        for(int i=0;i<ndCount;i++){
+            int nd;
+            if(!(ss >> nd)){
+                std::cerr << "Klaida skaitant ND (truksta duomenu)." << endl;
+                return;
+            }
+            naujas.nd.push_back(nd);
+        }
+        if(!(ss >> naujas.egz)){
+            std::cerr << "Klaida skaitant egzamina (truksta duomenu)." << endl;
+            return;
+        }
+        SkaiciuotiGalutinius(naujas);
+        if(naujas.galutinis_vid>5.0)maladiec.push_back(naujas);
+        else vargsai.push_back(naujas);
+    }
+    std::ofstream mldc("maladiec.txt");
+    std::ofstream vrgs("vargsai.txt");
+
+    auto writeHeader = [](std::ostream& out, int x) {
+    out << left<<setw(25)<<"Vardas"<<setw(25)<<"Pavarde";
+    for(int i=0;i<x;i++){
+        out<<setw(10)<<("ND"+std::to_string(i+1));
+    }
+    out<<setw(10)<<"Egz."<<endl;
+    };
+
+    auto writeStud = [](std::ostream& out, int x, size_t k, const vector<Studentas>& X){
+        for(size_t i=0;i<k;i++){
+            
+            out<<left<<setw(25)<<X[i].vardas<<setw(25)<<X[i].pavarde;
+            for(int j=0;j<x;j++){
+                out<<setw(10)<<X[i].nd[j];
+            }
+            out<<setw(10)<<X[i].egz<<endl;
+        }
+    };
+
+    writeHeader(mldc, ndCount);
+    writeStud(mldc, ndCount, maladiec.size(), maladiec);
+    writeHeader(vrgs, ndCount);
+    writeStud(vrgs, ndCount, vargsai.size(), vargsai);
+
+
 
 }

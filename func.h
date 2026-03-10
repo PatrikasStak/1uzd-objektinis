@@ -19,5 +19,6 @@ double Mediana(const std::vector<Studentas>& X, int x);
 void Rezultatas(std::vector<Studentas>& X);
 void RezultatasFailo(std::vector<Studentas>& X);
 void FailuGeneravimas();
+void GeneruotuRusiavimas(string path)
 
 #endif
