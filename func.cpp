@@ -495,6 +495,8 @@ void FailuGeneravimas(){
 }
 
 void GeneruotuRusiavimas(string path){
+    auto startbig = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in(path);
     vector<Studentas> maladiec;
     vector<Studentas> vargsai;
@@ -503,6 +505,9 @@ void GeneruotuRusiavimas(string path){
     std::stringstream ss;
     ss<<in.rdbuf();
     in.close();
+    auto end = std::chrono::high_resolution_clock::now();
+    auto sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas nuskaitytas per " << sec << " s\n";
     getline(ss, header);
 
     std::stringstream hs(header);
@@ -533,11 +538,15 @@ void GeneruotuRusiavimas(string path){
         SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
     }
-
+    start = std::chrono::high_resolution_clock::now();
     std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
         return a.galutinis_vid < b.galutinis_vid;
         });
-    
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isrikiuotas su sort per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < X.size(); ++i) {
     if (X[i].galutinis_vid < 5.0) {
         vargsai.push_back(X[i]);
@@ -545,6 +554,9 @@ void GeneruotuRusiavimas(string path){
         maladiec.push_back(X[i]);
     }
     }
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isskirstytas i 2 per " << sec << " s\n";
 
 
     std::ofstream mldc("maladiec.txt");
@@ -568,12 +580,24 @@ void GeneruotuRusiavimas(string path){
             out<<setw(10)<<X[i].egz<<setw(10)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
         }
     };
-
+    start = std::chrono::high_resolution_clock::now();
     writeHeader(mldc, ndCount);
     writeStud(mldc, ndCount, maladiec.size(), maladiec);
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failo maladiec isvesti per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
     writeHeader(vrgs, ndCount);
     writeStud(vrgs, ndCount, vargsai.size(), vargsai);
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failo vargsai isvesti per " << sec << " s\n";
 
+
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - startbig).count();
+    std::cout << path<<" failo visi rikiavimai atlikti per " << sec << " s\n";
 
 
 }
