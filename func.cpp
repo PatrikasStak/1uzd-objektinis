@@ -405,11 +405,7 @@ void RezultatasFailo(vector<Studentas>& X){
 }
 
 void FailuGeneravimas(){
-    std::ofstream k1("generuoti1000.txt");
-    std::ofstream k10("generuoti10000.txt");
-    std::ofstream k100("generuoti100000.txt");
-    std::ofstream m1("generuoti1000000.txt");
-    std::ofstream m10("generuoti10000000.txt");
+
     
     auto writeHeader = [](std::ostream& out, int x) {
     out << left<<setw(25)<<"Vardas"<<setw(25)<<"Pavarde";
@@ -445,6 +441,12 @@ void FailuGeneravimas(){
     if(nd<=0)std::cerr<<"Turi buti bent 1 ND"<<endl;
     else break;
     }
+    auto start = std::chrono::high_resolution_clock::now();
+    std::ofstream k1("generuoti1000.txt");
+    std::ofstream k10("generuoti10000.txt");
+    std::ofstream k100("generuoti100000.txt");
+    std::ofstream m1("generuoti1000000.txt");
+    std::ofstream m10("generuoti10000000.txt");
     writeHeader(k1, nd);
     writeStud(k1, nd, 1000);
     writeHeader(k10, nd);
@@ -455,7 +457,9 @@ void FailuGeneravimas(){
     writeStud(m1, nd, 1000000);
     writeHeader(m10, nd);
     writeStud(m10, nd, 10000000);
-
+    auto end = std::chrono::high_resolution_clock::now();
+    auto sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "Took " << sec << " ms\n";
     
 
     k1.close();
@@ -470,6 +474,7 @@ void GeneruotuRusiavimas(string path){
     std::ifstream in(path);
     vector<Studentas> maladiec;
     vector<Studentas> vargsai;
+    vector<Studentas> X;
     string header;
     std::stringstream ss;
     ss<<in.rdbuf();
@@ -502,9 +507,22 @@ void GeneruotuRusiavimas(string path){
             return;
         }
         SkaiciuotiGalutinius(naujas);
-        if(naujas.galutinis_vid>5.0)maladiec.push_back(naujas);
-        else vargsai.push_back(naujas);
+        X.push_back(naujas);
     }
+
+    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
+        return a.galutinis_vid < b.galutinis_vid;
+        });
+    
+    for (size_t i = 0; i < X.size(); ++i) {
+    if (X[i].galutinis_vid < 5.0) {
+        vargsai.push_back(X[i]);
+    } else {
+        maladiec.push_back(X[i]);
+    }
+    }
+
+
     std::ofstream mldc("maladiec.txt");
     std::ofstream vrgs("vargsai.txt");
 
