@@ -513,7 +513,7 @@ void GeneruotuRusiavimas(string path){
     for(int i=0;i<x;i++){
         out<<setw(10)<<("ND"+std::to_string(i+1));
     }
-    out<<setw(10)<<"Egz."<<endl;
+    out<<setw(10)<<"Egz."<<setw(10)<<"Gal"<<endl;
     };
 
     auto writeStud = [](std::ostream& out, int x, size_t k, const vector<Studentas>& X){
@@ -523,7 +523,7 @@ void GeneruotuRusiavimas(string path){
             for(int j=0;j<x;j++){
                 out<<setw(10)<<X[i].nd[j];
             }
-            out<<setw(10)<<X[i].egz<<endl;
+            out<<setw(10)<<X[i].egz<<setw(10)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
         }
     };
 

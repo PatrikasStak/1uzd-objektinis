@@ -21,7 +21,7 @@ int main() {
     else if(choice=="3"){
         FailuGeneravimas();
         while(true){
-            std::cout<<"Kuri faila norite rusioti? 1 - generuoti1000.txt 2 - generuoti10000.txt 3 - generuoti100000.txt 4 - generuoti1000000.txt 5 - generuoti10000000.txt 6 - baigti \n";
+            std::cout<<"Kuri faila rusioti? 1 - generuoti1000.txt 2 - generuoti10000.txt 3 - generuoti100000.txt 4 - generuoti1000000.txt 5 - generuoti10000000.txt 6 - baigti \n";
             if(choice=="1"||choice=="2"||choice=="3"||choice=="4"||choice=="5"||choice=="6"){
             getline(std::cin, choice);
             if(choice=="1")GeneruotuRusiavimas("generuoti1000.txt");
