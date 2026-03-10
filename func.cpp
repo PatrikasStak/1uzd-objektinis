@@ -441,32 +441,56 @@ void FailuGeneravimas(){
     if(nd<=0)std::cerr<<"Turi buti bent 1 ND"<<endl;
     else break;
     }
+    auto sstart = std::chrono::high_resolution_clock::now();
     auto start = std::chrono::high_resolution_clock::now();
+
     std::ofstream k1("generuoti1000.txt");
-    std::ofstream k10("generuoti10000.txt");
-    std::ofstream k100("generuoti100000.txt");
-    std::ofstream m1("generuoti1000000.txt");
-    std::ofstream m10("generuoti10000000.txt");
     writeHeader(k1, nd);
     writeStud(k1, nd, 1000);
-    writeHeader(k10, nd);
-    writeStud(k10, nd, 10000);
-    writeHeader(k100, nd);
-    writeStud(k100, nd, 100000);
-    writeHeader(m1, nd);
-    writeStud(m1, nd, 1000000);
-    writeHeader(m10, nd);
-    writeStud(m10, nd, 10000000);
+    k1.close();
     auto end = std::chrono::high_resolution_clock::now();
     auto sec = std::chrono::duration<double>(end - start).count();
-    std::cout << "Took " << sec << " ms\n";
-    
+    std::cout << "1000 failas sugeneruotas per " << sec << " s\n";
 
-    k1.close();
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream k10("generuoti10000.txt");
+    writeHeader(k10, nd);
+    writeStud(k10, nd, 10000);
     k10.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "10000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream k100("generuoti100000.txt");
+    writeHeader(k100, nd);
+    writeStud(k100, nd, 100000);
     k100.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "100000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream m1("generuoti1000000.txt");
+    writeHeader(m1, nd);
+    writeStud(m1, nd, 1000000);
     m1.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "1000000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream m10("generuoti10000000.txt");
+    writeHeader(m10, nd);
+    writeStud(m10, nd, 10000000);
     m10.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "10000000 failas sugeneruotas per " << sec << " s\n";
+
+    auto sEnd = std::chrono::high_resolution_clock::now();
+    auto totalSec = std::chrono::duration<double>(sEnd - sstart).count();
+    std::cout << "Visi failai sugeneruoti per " << totalSec << " s\n";
 
 }
 
