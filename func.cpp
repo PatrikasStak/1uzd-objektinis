@@ -149,13 +149,25 @@ void Skaityti(vector<Studentas>& X){
     }
 
 }
-
-bool SkaitytiFaila(vector<Studentas>& X, const std::string& path){
+void SkaitytiFaila(vector<Studentas>& X){
     string header;
-    std::ifstream in(path);
-    if(!in){
-        std::cerr<<"Nepavyko atidaryti failo: "<<path<<endl;
-        return false;
+    string path;
+    std:: ifstream in;
+    in.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    while (true){
+        try{
+            std::cout<<"Kokį failą norite skaityti? ";
+            system("ls -1 *.txt | grep -v '^rez.txt$'");
+            getline(std::cin, path);
+            t1 = std::chrono::high_resolution_clock::now();
+            in.open(path);
+            break;
+        }
+        catch(const std::ifstream::failure& e){
+            in.clear();
+            std::cerr<<"Nepavyko atidaryti failo: "<<path<<", bandykite dar karta"<<endl;
+        }
     }
     std::stringstream ss;
     ss<<in.rdbuf();
@@ -172,7 +184,8 @@ bool SkaitytiFaila(vector<Studentas>& X, const std::string& path){
     }
     if(ndCount == 0){
         std::cerr << "Nepavyko nustatyti ND stulpeliu skaiciaus is antrastes." << endl;
-        return false;
+        return;
+
     }
 
     while(true){
@@ -183,18 +196,21 @@ bool SkaitytiFaila(vector<Studentas>& X, const std::string& path){
             int nd;
             if(!(ss >> nd)){
                 std::cerr << "Klaida skaitant ND (truksta duomenu)." << endl;
-                return false;
+                return;
             }
             naujas.nd.push_back(nd);
         }
         if(!(ss >> naujas.egz)){
             std::cerr << "Klaida skaitant egzamina (truksta duomenu)." << endl;
-            return false;
+            return;
         }
         SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
     }
-    return true;
+auto t2 = std::chrono::high_resolution_clock::now();
+auto dt = std::chrono::duration<double>(t2 - t1);
+std::cout << "Laikas: " <<std::fixed<<std::setprecision(5)<< dt.count() << " s\n";
+
 
 }
 
