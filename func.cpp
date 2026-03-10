@@ -450,5 +450,10 @@ void FailuGeneravimas(){
 
     
 
+    k1.close();
+    k10.close();
+    k100.close();
+    m1.close();
+    m10.close();
 
 }
