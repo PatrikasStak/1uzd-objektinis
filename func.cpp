@@ -404,7 +404,7 @@ void RezultatasFailo(vector<Studentas>& X){
     }
 }
 
-void FailuGeneravimas(int nd){
+void FailuGeneravimas(){
     std::ofstream k1("generuoti1000.txt");
     std::ofstream k10("generuoti10000.txt");
     std::ofstream k100("generuoti100000.txt");
@@ -433,11 +433,20 @@ void FailuGeneravimas(int nd){
         }
     };
 
+    int nd;
+    cout<<"Kiek nd? ";
+    cin>>nd;//change to getline for error catching
+
     writeHeader(k1, nd);
+    writeStud(k1, nd, 1000);
     writeHeader(k10, nd);
+    writeStud(k10, nd, 10000);
     writeHeader(k100, nd);
+    writeStud(k100, nd, 100000);
     writeHeader(m1, nd);
+    writeStud(m1, nd, 1000000);
     writeHeader(m10, nd);
+    writeStud(m10, nd, 10000000);
 
     
 
