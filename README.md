@@ -43,3 +43,9 @@ v0.4 laikai su 5 ND: 1000 - 0.0083      10000 - 0.0418      100000 - 0.2258     
 100k - nuskaitytas(0.0739688s) isrikiuotas(0.144601s) isskirstytas(0.0221737s) maladiec isvesti(0.12701s) vargsai isvesti(0.13024s) visi rikiavimai(0.424479s)
 1m - nuskaitytas(0.549354s) isrikiuotas(1.31903s) isskirstytas(0.238631s) maladiec isvesti(1.36901s) vargsai isvesti(0.907606s) visi rikiavimai(3.83508s)
 10m - nuskaitytas(4.86618s) isrikiuotas(15.3556s) isskirstytas(2.83875s) maladiec isvesti(14.1785s) vargsai isvesti(9.55324s) visi rikiavimai(42.0122s)
+
+<img width="459" height="119" alt="image" src="https://github.com/user-attachments/assets/5d55e264-82c0-4ab9-82aa-40350a6a7b46" />
+<img width="1068" height="659" alt="image" src="https://github.com/user-attachments/assets/9a76e87d-c6d5-4418-ba0f-db7978bdc317" />
+
+
+  
