@@ -1,5 +1,5 @@
-#include "funcv.h"
-#include "namesv.h"
+#include "func.h"
+#include "names.h"
 using std::cout;
 using std::cin;
 using std::endl;
@@ -56,17 +56,28 @@ void Skaityti(vector<Studentas>& X){
                     break;
                 }
                 try{
-                    naujas.nd.push_back(std::stod(line));
+                    naujas.nd.push_back(std::stoi(line));
                     j++;
-                }catch(...){}
+                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą"<<endl;
+                continue;}
+                if(naujas.nd[j-1]>=0&&naujas.nd[j-1]<=10)continue;
+                else {
+                    cout<<"Namu darbu pazymis nera 0-10, bandykite dar karta"<<endl;
+                    j--;
+                }
+                
             }
             while(true){
                 cout<<"Iveskite "<<s+1<<" studento egzamino pazymi: ";
                 getline(cin, line);
                 try{
-                    naujas.egz = std::stod(line);
-                    break;
-                }catch(...){}
+                    naujas.egz = std::stoi(line);
+                }catch(const std::invalid_argument){std::cerr<<"Tai nėra skaičius, bandykite dar kartą"<<endl;
+                continue;}
+                if(naujas.egz>=0&&naujas.egz<=10)break;
+                else {
+                    cout<<"Egzamino pazymis nera 0-10, bandykite dar karta"<<endl;
+                }
             }
             SkaiciuotiGalutinius(naujas);
         }
@@ -138,16 +149,29 @@ void Skaityti(vector<Studentas>& X){
     }
 
 }
-
-void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
+void SkaitytiFaila(vector<Studentas>& X){
     string header;
-    std::ifstream in(path);
-    if(!in){
-        std::cerr<<"Nepavyko atidaryti failo: "<<path<<endl;
-        return;
+    string path;
+    std:: ifstream in;
+    in.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    while (true){
+        try{
+            std::cout<<"Kokį failą norite skaityti? ";
+            system("ls -1 *.txt | grep -v '^rez.txt$'");
+            getline(std::cin, path);
+            t1 = std::chrono::high_resolution_clock::now();
+            in.open(path);
+            break;
+        }
+        catch(const std::ifstream::failure& e){
+            in.clear();
+            std::cerr<<"Nepavyko atidaryti failo: "<<path<<", bandykite dar karta"<<endl;
+        }
     }
     std::stringstream ss;
     ss<<in.rdbuf();
+    in.close();
     getline(ss, header);
 
     std::stringstream hs(header);
@@ -161,6 +185,7 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
     if(ndCount == 0){
         std::cerr << "Nepavyko nustatyti ND stulpeliu skaiciaus is antrastes." << endl;
         return;
+
     }
 
     while(true){
@@ -182,6 +207,10 @@ void SkaitytiFaila(vector<Studentas>& X, const std::string& path){
         SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
     }
+auto t2 = std::chrono::high_resolution_clock::now();
+auto dt = std::chrono::duration<double>(t2 - t1);
+std::cout << "Laikas: " <<std::fixed<<std::setprecision(5)<< dt.count() << " s\n";
+
 
 }
 
@@ -373,4 +402,252 @@ void RezultatasFailo(vector<Studentas>& X){
         spausdinti(cout);
         spausdinti(file);
     }
+}
+
+void FailuGeneravimas(){
+
+    
+    auto writeHeader = [](std::ostream& out, int x) {
+    out << left<<setw(25)<<"Vardas"<<setw(25)<<"Pavarde";
+    for(int i=0;i<x;i++){
+        out<<setw(10)<<("ND"+std::to_string(i+1));
+    }
+    out<<setw(10)<<"Egz."<<endl;
+    };
+
+    auto writeStud = [](std::ostream& out, int x, int k){
+        int random;
+        for(int i=0;i<k;i++){
+            
+            out<<left<<setw(25)<<("Vardas" + std::to_string(i+1))<<setw(25)<<("Pavarde"+ std::to_string(i+1));
+            for(int j=0;j<x;j++){
+                random = rand() % 10 + 1;
+                out<<setw(10)<<random;
+            }
+            random = rand() % 10 + 1;
+            out<<setw(10)<<random<<endl;
+        }
+    };
+
+    int nd;
+    string line;
+    while(true){
+    cout<<"Iveskite norima ND skaiciu: ";
+    getline(cin, line);
+    try{
+        nd=stoi(line);
+    }catch(const std::invalid_argument){std::cerr<<"Tai nera skaicius, bandykite dar karta!"<<endl;
+    continue;}
+    if(nd<=0)std::cerr<<"Turi buti bent 1 ND"<<endl;
+    else break;
+    }
+    auto sstart = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::ofstream k1("generuoti1000.txt");
+    writeHeader(k1, nd);
+    writeStud(k1, nd, 1000);
+    k1.close();
+    auto end = std::chrono::high_resolution_clock::now();
+    auto sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "1000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream k10("generuoti10000.txt");
+    writeHeader(k10, nd);
+    writeStud(k10, nd, 10000);
+    k10.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "10000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream k100("generuoti100000.txt");
+    writeHeader(k100, nd);
+    writeStud(k100, nd, 100000);
+    k100.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "100000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream m1("generuoti1000000.txt");
+    writeHeader(m1, nd);
+    writeStud(m1, nd, 1000000);
+    m1.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "1000000 failas sugeneruotas per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream m10("generuoti10000000.txt");
+    writeHeader(m10, nd);
+    writeStud(m10, nd, 10000000);
+    m10.close();
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << "10000000 failas sugeneruotas per " << sec << " s\n";
+
+    auto sEnd = std::chrono::high_resolution_clock::now();
+    auto totalSec = std::chrono::duration<double>(sEnd - sstart).count();
+    std::cout << "Visi failai sugeneruoti per " << totalSec << " s\n";
+
+}
+
+void GeneruotuRusiavimas(string path){
+    auto start = std::chrono::high_resolution_clock::now();
+    std::ifstream in(path);
+    vector<Studentas> maladiec;
+    vector<Studentas> vargsai;
+    vector<Studentas> X;
+    string header;
+    std::stringstream ss;
+    ss<<in.rdbuf();
+    in.close();
+    auto end = std::chrono::high_resolution_clock::now();
+    auto sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas nuskaitytas per " << sec << " s\n";
+    getline(ss, header);
+
+    std::stringstream hs(header);
+    string token;
+    int ndCount = 0;
+    while(hs >> token){
+        if(token.rfind("ND", 0) == 0){
+            ndCount++;
+        }
+    }
+    
+    while(true){
+        Studentas naujas;
+        if(!(ss>>naujas.vardas>>naujas.pavarde))break;
+        naujas.nd.clear();
+        for(int i=0;i<ndCount;i++){
+            int nd;
+            if(!(ss >> nd)){
+                std::cerr << "Klaida skaitant ND (truksta duomenu)." << endl;
+                return;
+            }
+            naujas.nd.push_back(nd);
+        }
+        if(!(ss >> naujas.egz)){
+            std::cerr << "Klaida skaitant egzamina (truksta duomenu)." << endl;
+            return;
+        }
+        SkaiciuotiGalutinius(naujas);
+        X.push_back(naujas);
+    }
+    string choice;
+    while(true){
+        cout<<"Kaip rikiuoti? 1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini(vidurkio), 4 - pagal galutini(medianos): ";
+        getline(cin, choice);
+        if(choice=="1"||choice=="2"||choice=="3"||choice=="4")break;
+        else std::cerr<<"Neteisinga ivestis, bandykite dar karta!\n";
+    }
+    auto startbig = std::chrono::high_resolution_clock::now();
+    if(choice=="1"){
+    start = std::chrono::high_resolution_clock::now();
+    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
+        return a.vardas < b.vardas;
+        });
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isrikiuotas pagal vardus per " << sec << " s\n";
+    }
+    else if(choice=="2"){
+    start = std::chrono::high_resolution_clock::now();
+    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
+        return a.pavarde < b.pavarde;
+        });
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isrikiuotas pagal pavardes per " << sec << " s\n";
+    }
+    else if(choice=="3"){
+    start = std::chrono::high_resolution_clock::now();
+    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
+        return a.galutinis_vid < b.galutinis_vid;
+        });
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isrikiuotas pagal galutinius(vid) per " << sec << " s\n";
+    }
+    else if(choice=="4"){
+    start = std::chrono::high_resolution_clock::now();
+    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
+        return a.galutinis_med < b.galutinis_med;
+        });
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isrikiuotas pagal galutinius(med) per " << sec << " s\n";
+    }
+    if(choice!="4"){
+    start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < X.size(); ++i) {
+    if (X[i].galutinis_vid < 5.0) {
+        vargsai.push_back(X[i]);
+    } else {
+        maladiec.push_back(X[i]);
+    }}}
+    else{
+        start = std::chrono::high_resolution_clock::now();
+    for (size_t i = 0; i < X.size(); ++i) {
+    if (X[i].galutinis_med < 5.0) {
+        vargsai.push_back(X[i]);
+    } else {
+        maladiec.push_back(X[i]);
+    }}}
+    
+    
+    
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failas isskirstytas i 2 per " << sec << " s\n";
+
+
+    std::ofstream mldc("maladiec.txt");
+    std::ofstream vrgs("vargsai.txt");
+
+    auto writeHeader = [](std::ostream& out, int x, string choice) {
+    out << left<<setw(25)<<"Vardas"<<setw(25)<<"Pavarde";
+    for(int i=0;i<x;i++){
+        out<<setw(10)<<("ND"+std::to_string(i+1));
+    }
+    out<<setw(10)<<"Egz.";
+    if(choice=="4")out<<setw(10)<<"Gal.(Med)"<<endl;
+    else out<<setw(10)<<"Gal.(Vid)"<<endl;
+    };
+
+    auto writeStud = [](std::ostream& out, int x, size_t k, const vector<Studentas>& X, string choice){
+        for(size_t i=0;i<k;i++){
+            
+            out<<left<<setw(25)<<X[i].vardas<<setw(25)<<X[i].pavarde;
+            for(int j=0;j<x;j++){
+                out<<setw(10)<<X[i].nd[j];
+            }
+            out<<setw(10)<<X[i].egz;
+            if(choice=="4")out<<setw(10)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med<<endl;
+            else out<<setw(10)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
+        }
+    };
+    start = std::chrono::high_resolution_clock::now();
+    writeHeader(mldc, ndCount, choice);
+    writeStud(mldc, ndCount, maladiec.size(), maladiec, choice);
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failo maladiec isvesti per " << sec << " s\n";
+
+    start = std::chrono::high_resolution_clock::now();
+    writeHeader(vrgs, ndCount, choice);
+    writeStud(vrgs, ndCount, vargsai.size(), vargsai, choice);
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" failo vargsai isvesti per " << sec << " s\n";
+
+
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - startbig).count();
+    std::cout << path<<" failo visi rikiavimai atlikti per " << sec << " s\n";
+
+
 }
