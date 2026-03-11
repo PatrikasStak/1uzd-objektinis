@@ -495,7 +495,6 @@ void FailuGeneravimas(){
 }
 
 void GeneruotuRusiavimas(string path){
-    auto startbig = std::chrono::high_resolution_clock::now();
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in(path);
     vector<Studentas> maladiec;
@@ -545,6 +544,7 @@ void GeneruotuRusiavimas(string path){
         if(choice=="1"||choice=="2"||choice=="3"||choice=="4")break;
         else std::cerr<<"Neteisinga ivestis, bandykite dar karta!\n";
     }
+    auto startbig = std::chrono::high_resolution_clock::now();
     if(choice=="1"){
     start = std::chrono::high_resolution_clock::now();
     std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
