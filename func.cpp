@@ -643,6 +643,8 @@ void GeneruotuRusiavimas(string path){
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo vargsai isvesti per " << sec << " s\n";
+    mldc.close();
+    vrgs.close();
 
 
     end = std::chrono::high_resolution_clock::now();
