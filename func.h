@@ -20,5 +20,6 @@ void Rezultatas(std::vector<Studentas>& X);
 void RezultatasFailo(std::vector<Studentas>& X);
 void FailuGeneravimas();
 void GeneruotuRusiavimas(std::string path);
+void TrintiFaila(const std::string& path);
 
 #endif

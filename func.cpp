@@ -653,3 +653,7 @@ void GeneruotuRusiavimas(string path){
 
 
 }
+
+void TrintiFaila(const std::string& path){
+    std::remove(path.c_str());
+}

@@ -19,6 +19,11 @@ int main() {
         RezultatasFailo(A);
     }
     else if(choice=="3"){
+        TrintiFaila("generuoti1000.txt");
+        TrintiFaila("generuoti10000.txt");
+        TrintiFaila("generuoti100000.txt");
+        TrintiFaila("generuoti1000000.txt");
+        TrintiFaila("generuoti10000000.txt");
         FailuGeneravimas();
         while(true){
             std::cout<<"Kuri faila rusioti? 1 - generuoti1000.txt 2 - generuoti10000.txt 3 - generuoti100000.txt 4 - generuoti1000000.txt 5 - generuoti10000000.txt 6 - baigti \n";
