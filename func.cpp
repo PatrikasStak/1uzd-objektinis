@@ -497,6 +497,18 @@ void FailuGeneravimas(){
 void GeneruotuRusiavimas(string path){
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in(path);
+    while (true){
+        try{
+            in.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+            in.open(path);
+            break;
+        }
+        catch(const std::ifstream::failure& e){
+            in.clear();
+            std::cerr<<"Nepavyko atidaryti failo: "<<path<<", tikriausiai jis dar nesugeneruotas, bandykite dar karta"<<endl;
+            return;
+        }
+    }
     vector<Studentas> maladiec;
     vector<Studentas> vargsai;
     vector<Studentas> X;
@@ -517,7 +529,7 @@ void GeneruotuRusiavimas(string path){
             ndCount++;
         }
     }
-    
+    start = std::chrono::high_resolution_clock::now();
     while(true){
         Studentas naujas;
         if(!(ss>>naujas.vardas>>naujas.pavarde))break;
@@ -537,6 +549,9 @@ void GeneruotuRusiavimas(string path){
         SkaiciuotiGalutinius(naujas);
         X.push_back(naujas);
     }
+    end = std::chrono::high_resolution_clock::now();
+    sec = std::chrono::duration<double>(end - start).count();
+    std::cout << path<<" duomenys sudeti i vektoriu per: " << sec << " s\n";
     string choice;
     while(true){
         cout<<"Kaip rikiuoti? 1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini(vidurkio), 4 - pagal galutini(medianos): ";
