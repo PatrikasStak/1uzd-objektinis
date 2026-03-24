@@ -494,7 +494,7 @@ void FailuGeneravimas(){
 
 }
 
-template <typename Cont> void GeneruotuRusiavimasImpl(std::string& path){
+template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in;
     while (true){
@@ -564,10 +564,10 @@ template <typename Cont> void GeneruotuRusiavimasImpl(std::string& path){
     auto compMed = [](const Studentas& a, const Studentas& b){ return a.galutinis_med < b.galutinis_med; };
 
     auto doSort = [&](auto comp){
-        if constexpr (std::is_same_v<Cont, std::list<Studentas>>) {
-            X.sort(comp);            // list
+        if (std::is_same<Cont, std::list<Studentas>>::value) {
+            X.sort(comp);
         } else {
-            std::sort(X.begin(), X.end(), comp); // vector/deque
+            std::sort(X.begin(), X.end(), comp);
         }
     };
     start = std::chrono::high_resolution_clock::now();
