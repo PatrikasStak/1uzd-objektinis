@@ -47,3 +47,4 @@ v0.4 laikai su 5 ND: 1000 - 0.0083      10000 - 0.0418      100000 - 0.2258     
 <img width="1068" height="720" alt="image" src="https://github.com/user-attachments/assets/22719650-be0b-4c0e-bdac-9ad62378d845" />
 
 
+------------v1.0 testavimas 1 dalis-------------------
