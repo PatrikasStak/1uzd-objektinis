@@ -558,42 +558,27 @@ template <typename Cont> void GeneruotuRusiavimasImpl(std::string& path){
         else std::cerr<<"Neteisinga ivestis, bandykite dar karta!\n";
     }
     auto startbig = std::chrono::high_resolution_clock::now();
-    if(choice=="1"){
+    auto compVardas = [](const Studentas& a, const Studentas& b){ return a.vardas < b.vardas; };
+    auto compPavarde = [](const Studentas& a, const Studentas& b){ return a.pavarde < b.pavarde; };
+    auto compVid = [](const Studentas& a, const Studentas& b){ return a.galutinis_vid < b.galutinis_vid; };
+    auto compMed = [](const Studentas& a, const Studentas& b){ return a.galutinis_med < b.galutinis_med; };
+
+    auto doSort = [&](auto comp){
+        if constexpr (std::is_same_v<Cont, std::list<Studentas>>) {
+            X.sort(comp);            // list
+        } else {
+            std::sort(X.begin(), X.end(), comp); // vector/deque
+        }
+    };
     start = std::chrono::high_resolution_clock::now();
-    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
-        return a.vardas < b.vardas;
-        });
+    if (choice=="1") doSort(compVardas);
+    else if (choice=="2") doSort(compPavarde);
+    else if (choice=="3") doSort(compVid);
+    else if (choice=="4") doSort(compMed);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas isrikiuotas pagal vardus per " << sec << " s\n";
-    }
-    else if(choice=="2"){
-    start = std::chrono::high_resolution_clock::now();
-    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
-        return a.pavarde < b.pavarde;
-        });
-    end = std::chrono::high_resolution_clock::now();
-    sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas isrikiuotas pagal pavardes per " << sec << " s\n";
-    }
-    else if(choice=="3"){
-    start = std::chrono::high_resolution_clock::now();
-    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
-        return a.galutinis_vid < b.galutinis_vid;
-        });
-    end = std::chrono::high_resolution_clock::now();
-    sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas isrikiuotas pagal galutinius(vid) per " << sec << " s\n";
-    }
-    else if(choice=="4"){
-    start = std::chrono::high_resolution_clock::now();
-    std::sort(X.begin(), X.end(), [](const Studentas& a, const Studentas& b) {
-        return a.galutinis_med < b.galutinis_med;
-        });
-    end = std::chrono::high_resolution_clock::now();
-    sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas isrikiuotas pagal galutinius(med) per " << sec << " s\n";
-    }
+    std::cout << path<<" failas isrikiuotas per: " << sec << " s\n";
+
     if(choice!="4"){
     start = std::chrono::high_resolution_clock::now();
     for (size_t i = 0; i < X.size(); ++i) {
