@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <list>
+#include <deque>
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>

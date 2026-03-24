@@ -12,6 +12,11 @@ struct Studentas {
 
 };
 
+
+using StudentVec = std::vector<Studentas>;
+using StudentList = std::list<Studentas>;
+using StudentDeque = std::deque<Studentas>;
+
 void Skaityti(std::vector<Studentas>& X);
 void SkaitytiFaila(std::vector<Studentas>& X);
 double Vidurkis(const std::vector<Studentas>& X, int x);
