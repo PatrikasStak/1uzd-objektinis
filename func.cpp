@@ -494,7 +494,7 @@ void FailuGeneravimas(){
 
 }
 
-void GeneruotuRusiavimas(string path){
+template <typename Cont> void GeneruotuRusiavimasImpl(std::string& path){
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in;
     while (true){
@@ -509,9 +509,7 @@ void GeneruotuRusiavimas(string path){
             return;
         }
     }
-    vector<Studentas> maladiec;
-    vector<Studentas> vargsai;
-    vector<Studentas> X;
+    Cont X, vargsai, maladiec;
     string header;
     std::stringstream ss;
     ss<<in.rdbuf();
