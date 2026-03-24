@@ -559,7 +559,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     }
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" duomenys sudeti i vektoriu per: " << sec << " s\n";
+    std::cout << path<<" duomenys sudeti i konteineri per: " << sec << " s\n";
     string choice;
     while(true){
         cout<<"Kaip rikiuoti? 1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini(vidurkio), 4 - pagal galutini(medianos): ";
