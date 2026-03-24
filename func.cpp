@@ -651,6 +651,18 @@ template <typename Cont> void GeneruotuRusiavimasImpl(std::string& path){
 
 
 }
+void GeneruotuRusiavimasVec(const std::string& path) {
+    GeneruotuRusiavimasImpl<StudentVec>(path);
+}
+
+void GeneruotuRusiavimasList(const std::string& path) {
+    GeneruotuRusiavimasImpl<StudentList>(path);
+}
+
+void GeneruotuRusiavimasDeque(const std::string& path) {
+    GeneruotuRusiavimasImpl<StudentDeque>(path);
+}
+
 
 void TrintiFaila(const std::string& path){
     std::remove(path.c_str());
