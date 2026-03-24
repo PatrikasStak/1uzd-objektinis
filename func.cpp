@@ -496,7 +496,7 @@ void FailuGeneravimas(){
 
 void GeneruotuRusiavimas(string path){
     auto start = std::chrono::high_resolution_clock::now();
-    std::ifstream in(path);
+    std::ifstream in;
     while (true){
         try{
             in.exceptions(std::ifstream::failbit | std::ifstream::badbit);
