@@ -38,8 +38,11 @@ Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
 - "testavimai prideti" - abu testavimai yra
 - "pridetas rusiavimo pasirinkimas" - is generuotu failu galima rusiuoti irasus pagal varda, pavarde ir galutinius rezultatus
 v0.4 laikai su 5 ND: 1000 - 0.0083      10000 - 0.0418      100000 - 0.2258     1000000 - 2.1877       10000000 - 21.4033   visi 23.867
-1k - nuskaitytas(0.0023s) isrikiuotas(0.0031s) isskirstytas(0.0012s) maladiec isvesti(0.0043) vargsai isvesti(0.003s) visi rikiavimai(0.011s)
-10k - nuskaitytas(0.0108286s) isrikiuotas(0.027805s) isskirstytas(0.00441412s) maladiec isvesti(0.0212594s) vargsai isvesti(0.0122754s) visi rikiavimai(0.0661631s)
-100k - nuskaitytas(0.0739688s) isrikiuotas(0.144601s) isskirstytas(0.0221737s) maladiec isvesti(0.12701s) vargsai isvesti(0.13024s) visi rikiavimai(0.424479s)
-1m - nuskaitytas(0.549354s) isrikiuotas(1.31903s) isskirstytas(0.238631s) maladiec isvesti(1.36901s) vargsai isvesti(0.907606s) visi rikiavimai(3.83508s)
-10m - nuskaitytas(4.86618s) isrikiuotas(15.3556s) isskirstytas(2.83875s) maladiec isvesti(14.1785s) vargsai isvesti(9.55324s) visi rikiavimai(42.0122s)
+1k  - nuskaitytas(0.00260862s) isrikiuotas(0.00305742s) isskirstytas(0.00118667s) maladiec isvesti(0.00508504s) vargsai isvesti(0.00288596s) visi rikiavimai(0.0174237s)
+10k - nuskaitytas(0.0122946s)  isrikiuotas(0.027299s)   isskirstytas(0.00503313s) maladiec isvesti(0.0214935s) vargsai isvesti(0.0132335s) visi rikiavimai(0.0685688s)
+100k- nuskaitytas(0.0674996s)  isrikiuotas(0.144965s)   isskirstytas(0.0221816s) maladiec isvesti(0.14138s)  vargsai isvesti(0.0945567s) visi rikiavimai(0.41721s)
+1m  - nuskaitytas(0.480759s)   isrikiuotas(1.31925s)    isskirstytas(0.234185s) maladiec isvesti(1.4084s)   vargsai isvesti(1.0077s)  visi rikiavimai(3.98002s)
+10m - nuskaitytas(4.58091s)    isrikiuotas(15.3626s)    isskirstytas(3.53852s) maladiec isvesti(15.0625s)  vargsai isvesti(10.1604s) visi rikiavimai(44.1762s)
+  <img width="624" height="119" alt="image" src="https://github.com/user-attachments/assets/ba2c4947-be74-4a2d-a7f7-18b27c404106" />
+<img width="1068" height="720" alt="image" src="https://github.com/user-attachments/assets/22719650-be0b-4c0e-bdac-9ad62378d845" />
+
