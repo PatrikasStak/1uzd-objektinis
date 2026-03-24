@@ -23,11 +23,15 @@ int main() {
     }
 else if (choice == "4") {
     std::string kont;
+    while(true){
     std::cout << "Koki konteineri naudoti? 1 - vector, 2 - list, 3 - deque\n";
     getline(std::cin, kont);
+    if(kont=="1"||kont=="2"||kont=="3")break;
+    else std::cerr<<"Neteisinga ivestis!\n";
+    }
 
     while (true) {
-        std::cout << "Kuri faila rusioti? 1 - generuoti1000.txt 2 - generuoti10000.txt 3 - generuoti100000.txt 4 - generuoti1000000.txt 5 - generuoti10000000.txt 6 - baigti \n";
+        std::cout << "Kuri faila rusiuoti? 1 - generuoti1000.txt 2 - generuoti10000.txt 3 - generuoti100000.txt 4 - generuoti1000000.txt 5 - generuoti10000000.txt 6 - baigti \n";
         getline(std::cin, choice);
 
         if (choice == "1") {
