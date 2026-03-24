@@ -494,6 +494,16 @@ void FailuGeneravimas(){
 
 }
 
+template <typename Cont, typename Comp>
+void sortContainer(Cont& c, Comp comp) {
+    std::sort(c.begin(), c.end(), comp);
+}
+
+template <typename T, typename Alloc, typename Comp>
+void sortContainer(std::list<T, Alloc>& c, Comp comp) {
+    c.sort(comp);
+}
+
 template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in;
@@ -564,11 +574,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     auto compMed = [](const Studentas& a, const Studentas& b){ return a.galutinis_med < b.galutinis_med; };
 
     auto doSort = [&](auto comp){
-        if (std::is_same<Cont, std::list<Studentas>>::value) {
-            X.sort(comp);
-        } else {
-            std::sort(X.begin(), X.end(), comp);
-        }
+        sortContainer(X, comp);
     };
     start = std::chrono::high_resolution_clock::now();
     if (choice=="1") doSort(compVardas);
@@ -581,20 +587,22 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
 
     if(choice!="4"){
     start = std::chrono::high_resolution_clock::now();
-    for (size_t i = 0; i < X.size(); ++i) {
-    if (X[i].galutinis_vid < 5.0) {
-        vargsai.push_back(X[i]);
-    } else {
-        maladiec.push_back(X[i]);
-    }}}
+    for (const auto& s : X) {
+        if (s.galutinis_vid < 5.0) {
+            vargsai.push_back(s);
+        } else {
+            maladiec.push_back(s);
+        }
+    }}
     else{
         start = std::chrono::high_resolution_clock::now();
-    for (size_t i = 0; i < X.size(); ++i) {
-    if (X[i].galutinis_med < 5.0) {
-        vargsai.push_back(X[i]);
-    } else {
-        maladiec.push_back(X[i]);
-    }}}
+    for (const auto& s : X) {
+        if (s.galutinis_med < 5.0) {
+            vargsai.push_back(s);
+        } else {
+            maladiec.push_back(s);
+        }
+    }}
     
     
     
@@ -616,28 +624,27 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     else out<<setw(10)<<"Gal.(Vid)"<<endl;
     };
 
-    auto writeStud = [](std::ostream& out, int x, size_t k, const vector<Studentas>& X, string choice){
-        for(size_t i=0;i<k;i++){
-            
-            out<<left<<setw(25)<<X[i].vardas<<setw(25)<<X[i].pavarde;
+    auto writeStud = [](std::ostream& out, int x, const auto& X, string choice){
+        for (const auto& s : X){
+            out<<left<<setw(25)<<s.vardas<<setw(25)<<s.pavarde;
             for(int j=0;j<x;j++){
-                out<<setw(10)<<X[i].nd[j];
+                out<<setw(10)<<s.nd[j];
             }
-            out<<setw(10)<<X[i].egz;
-            if(choice=="4")out<<setw(10)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med<<endl;
-            else out<<setw(10)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
+            out<<setw(10)<<s.egz;
+            if(choice=="4")out<<setw(10)<<std::fixed<<std::setprecision(2)<<s.galutinis_med<<endl;
+            else out<<setw(10)<<std::fixed<<std::setprecision(2)<<s.galutinis_vid<<endl;
         }
     };
     start = std::chrono::high_resolution_clock::now();
     writeHeader(mldc, ndCount, choice);
-    writeStud(mldc, ndCount, maladiec.size(), maladiec, choice);
+    writeStud(mldc, ndCount, maladiec, choice);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo maladiec isvesti per " << sec << " s\n";
 
     start = std::chrono::high_resolution_clock::now();
     writeHeader(vrgs, ndCount, choice);
-    writeStud(vrgs, ndCount, vargsai.size(), vargsai, choice);
+    writeStud(vrgs, ndCount, vargsai, choice);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo vargsai isvesti per " << sec << " s\n";
