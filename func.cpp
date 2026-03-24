@@ -526,7 +526,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     in.close();
     auto end = std::chrono::high_resolution_clock::now();
     auto sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas nuskaitytas per " << sec << " s\n";
+    std::cout <<"\033[32m"<< path<<" failas nuskaitytas per " << sec << " s"<<"\033[0m"<<"\n";
     getline(ss, header);
 
     std::stringstream hs(header);
@@ -559,7 +559,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     }
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" duomenys sudeti i konteineri per: " << sec << " s\n";
+    std::cout <<"\033[32m"<< path<<" duomenys sudeti i konteineri per: " << sec << " s"<<"\033[0m"<<"\n";
     string choice;
     while(true){
         cout<<"Kaip rikiuoti? 1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini(vidurkio), 4 - pagal galutini(medianos): ";
@@ -583,7 +583,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     else if (choice=="4") doSort(compMed);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas isrikiuotas per: " << sec << " s\n";
+    std::cout <<"\033[32m"<< path<<" failas isrikiuotas per: " << sec << " s"<<"\033[0m"<<"\n";
 
     if(choice!="4"){
     start = std::chrono::high_resolution_clock::now();
@@ -608,7 +608,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
-    std::cout << path<<" failas isskirstytas i 2 per " << sec << " s\n";
+    std::cout <<"\033[32m"<< path<<" failas isskirstytas i 2 per " << sec << " s"<<"\033[0m"<<"\n";
 
 
     std::ofstream mldc("maladiec.txt");
