@@ -504,6 +504,44 @@ void sortContainer(std::list<T, Alloc>& c, Comp comp) {
     c.sort(comp);
 }
 
+static void moveVargsai(StudentVec& X, StudentVec& vargsai, bool useMed) {
+    for (const auto& s : X) {
+        double val = useMed ? s.galutinis_med : s.galutinis_vid;
+        if (val < 5.0) vargsai.push_back(s);
+    }
+    X.erase(std::remove_if(X.begin(), X.end(),
+                           [&](const Studentas& s){
+                               double val = useMed ? s.galutinis_med : s.galutinis_vid;
+                               return val < 5.0;
+                           }),
+            X.end());
+}
+
+static void moveVargsai(StudentDeque& X, StudentDeque& vargsai, bool useMed) {
+    for (const auto& s : X) {
+        double val = useMed ? s.galutinis_med : s.galutinis_vid;
+        if (val < 5.0) vargsai.push_back(s);
+    }
+    X.erase(std::remove_if(X.begin(), X.end(),
+                           [&](const Studentas& s){
+                               double val = useMed ? s.galutinis_med : s.galutinis_vid;
+                               return val < 5.0;
+                           }),
+            X.end());
+}
+
+static void moveVargsai(StudentList& X, StudentList& vargsai, bool useMed) {
+    for (auto it = X.begin(); it != X.end(); ) {
+        double val = useMed ? it->galutinis_med : it->galutinis_vid;
+        if (val < 5.0) {
+            vargsai.push_back(*it);
+            it = X.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
 template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in;
@@ -519,7 +557,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
             return;
         }
     }
-    Cont X, vargsai, maladiec;
+    Cont X, vargsai;
     string header;
     std::stringstream ss;
     ss<<in.rdbuf();
@@ -585,24 +623,8 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     sec = std::chrono::duration<double>(end - start).count();
     std::cout <<"\033[32m"<< path<<" failas isrikiuotas per: " << sec << " s"<<"\033[0m"<<"\n";
 
-    if(choice!="4"){
     start = std::chrono::high_resolution_clock::now();
-    for (const auto& s : X) {
-        if (s.galutinis_vid < 5.0) {
-            vargsai.push_back(s);
-        } else {
-            maladiec.push_back(s);
-        }
-    }}
-    else{
-        start = std::chrono::high_resolution_clock::now();
-    for (const auto& s : X) {
-        if (s.galutinis_med < 5.0) {
-            vargsai.push_back(s);
-        } else {
-            maladiec.push_back(s);
-        }
-    }}
+    moveVargsai(X, vargsai, choice=="4");
     
     
     
@@ -637,7 +659,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     };
     start = std::chrono::high_resolution_clock::now();
     writeHeader(mldc, ndCount, choice);
-    writeStud(mldc, ndCount, maladiec, choice);
+    writeStud(mldc, ndCount, X, choice);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo maladiec isvesti per " << sec << " s\n";
