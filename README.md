@@ -20,6 +20,8 @@ OS: MacOS Tahoe 26.3.1 (a)
 RAM 16GB unified memory
 SSD: 256GB
 
+SVARBU: Rūšiavimas čia prilygsta sort, skirstymas yra studentų padalijimas į 2 konteinerius
+
 <img width="694" height="149" alt="image" src="https://github.com/user-attachments/assets/1f32b2eb-59e0-440e-9429-261ea6bf564a" />
 <img width="674" height="156" alt="image" src="https://github.com/user-attachments/assets/7eb04200-f5ab-4c16-b7f6-22bd660ba879" />
 <img width="692" height="151" alt="image" src="https://github.com/user-attachments/assets/32961796-ae0c-4f72-b068-22c1f122a5d1" />
