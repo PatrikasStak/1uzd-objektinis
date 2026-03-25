@@ -1,51 +1,129 @@
-- "padarytas base modelis" - parašyta paprasta programa su masyvais ir statine atmintimi, visi duomenys suvedami, rezultatas skaičiuojamas tik su vidurkiu
-- "prideta medianos funkcija" - rezultatas gali buti skaiciuojamas su mediana
-- "skaitymas nezinant skaiciu, be vektoriu ir atskiru failu" - pakeista skaitymo funkcija kad skaitytu duomenis nezinant kiek ju bus, viskas dar vyksta viename faile ir tik su masyvais
-- "padaryta dinamine atmintis masyvams" - pakeiciau koda kad masyvai butu dinaminiai o ne statiniai
-- "bug fixai + pagrazinimas" - masyvu failo rezultate pridetas suskirstymas(Vardas, pavarde, galutinis) islygintas su setw. Padariau kad butu negalima irasyti nesakiciu, kai vedami namu darbu pazymiai ir egzaminu rezultatai.
-- "pridetas main_vector.cpp" - pridetas failas veikiantis su vektoriais vietoj masyvu
-- "išskaidytas kodas į .h ir .cpp failus" - main.cpp ir main_vector.cpp isskaidziau i lib.h func(m/v).cpp ir func(m/v).h (m- masyvai v- vektoriai), dar pridejau sort funkcija medianos funkcijose
-- "prideta random funkcija" - pridetas pasirinkimas generuoti nd ir egz pazymius studentui ivedus "r" vietoj pazymio
-- "bug fix: zsh: trace trap  ./main" - sutaisytas bugas kur main.cpp ivedus trecio studento varda gaunamas erroras zsh: trace trap  ./main
-- "bug fixai" - padariau kad random galima generauoti tik kai rasomas pirmas pazymys. Buvo bug'as kai yra pasirinkimas mediana ar vidurkis paspaudus enter nieko nevyko, dabar defaultina i vidurki. 
-- "padarytas menu + bug fixai" - padaryta menu kur pasirenkamas duomenu ivedimas ir darbo baigimas, pataisytas kodas kad butu butina ivesti nors 1 pazymi. Dar prideta galimybe generuoti ir vardus.
--- v0.2
-- "prideta fill_n funkcija" - vietoj to, kad bruksnius rezultate printintu per loopa, panaudota fill_n funkcija
-- "studentu generavimo fix" - parinktis generuoti visus studentu duomenis (3) pakeista, kad butu galima pasirinkti kiek studentu norima sugeneruoti
-- "preliminari failo skaitymo funkcija" - galimas skaitymas is kursiokai.txt
-- "dinaminis nd kiekis" - dabar skaitoma ne butinai 15 nd failai, programa issiaiskina kiek nd tures studentai is pagal pirma eilute
-- "pridetos rikiavimo funkcijos" - galima rikiuoti pagal varda, pavarde, galutinius rezultatus, dar prideta funkcija kuri i struct sudeda galutinius rezultatus
 ------------
-Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
+Diegimo ir paleidimo instrukcija (Unix / Makefile)
+1. Sukompiliuoti programą:
+```
+make
+```
+2. Paleisti programą:
+```
+./main
+```
+3. Išvalyti kompiliacijos failus:
+```
+make clean
+```
+
+RELEASES:
+
+**v.pradinė**
+- Padarytas base programos modelis
+- Naudojami statiniai masyvai
+- Rezultatas skaičiuojamas su mediana/vidurkiu
+
+**v0.1**
+- Galimybė generuoti pažymius
+- Galimybė generuoti studentų vardus ir pavardes
+- Dinaminės atminties masyvai/vektoriai
+- Tvarkingesniė failų struktūra nei v.pradinė
+
+**v0.2**
+- Galimybe skaityti is failo
+- Galimybe rikiuoti rezultatus
+- Failo skaitymo laiko apskaiciavimas
+
+**v0.3**
+- Keli bug fixai
+- Klaidų gaudymas jau buvo naudojamas nuo v0.1
+
+**v0.4**
+- Failu generavimas
+- Ju isrusiavimas i 2 failus
+- Visko laikas yra matuojamas
+
+**v0.4.1**
+- Sutaisytas rūšiavimo eiliškumas iš v0.4
+
+**v1.0 pirma dalis**
+- Galima atlikti testavimus su vector, list ir deque konteineriais
+- Rezultatai pateikti README.md faile
+
+**v1.0**
+- Baigta programa
+- Galima paleisti su makefile
+- Pridėtos įvairios optimizacijos
+
+
 ------------
-- "pridetas rasymas i faila" - galima pasirinkti rezultatus rasyti i rez.txt, terminala arba abu
-- "pataisyta system isvestis renkantis failus" - neberodoma rez.txt
-- "panaikinti masyvu failai" - panaikinau failus kurie dirba su masyvais kadangi dabar naudojami tik failai su vektoriais
-- "pervardinti failai" - failai pervardinti i trumpesnius pavadinimus
-- "failo pasirinkimo error pataisymas" - anksčiau kai būdavo įvestas neteisingas failas, programa sustodavo, dabar leidžia įvesti vėl
-- "catch pataisymai" - dabar catch gaudo specifinius errorus vietoj ... ir išveda žinute kai sugauna errora
-- "egzamino pazymio tikrinimas" - tikrinama ar egzamino pazymis yra 0-10
-- "namu darbu pazymio tikrinimas" - tikrinama ar namu darbu pazymis yra 0-10
-- "try catch atidarant faila" - errorai gaunami atidarant faila dabar dorojami su catch
-- "rasymo lambdos" - padarytos headerio ir likusio failo rasymo lambdos
-- "veikiantis failu generavimas" - padaryta failu generavimo funkcija
-- "pridetas vatch prie ND ivedimo" - renkantis ND skaiciu failu generavime nebegalima padaryti neteisingos ivesties
-- "padaryta GeneruotuRusiavimas funkcija" - funkcija gali perkirsti faila i 2 failus
-- "rusiavimas galimas is terminalo" - GeneruotuRusivimas callinamas main
-- "surusioti failai rodo gal. rezultatus" - maladiec.txt ir vargsai.txt rodo galutinius rezultatus
-- "final versija pries testavima" - yra rusiavimas
-- "1 testavimas" - matuojamas laikas 1 testavimui
-- "testavimai prideti" - abu testavimai yra
-- "pridetas rusiavimo pasirinkimas" - is generuotu failu galima rusiuoti irasus pagal varda, pavarde ir galutinius rezultatus
-v0.4 laikai su 5 ND: 1000 - 0.0083      10000 - 0.0418      100000 - 0.2258     1000000 - 2.1877       10000000 - 21.4033   visi 23.867
-1k - nuskaitytas(0.0023s) isrikiuotas(0.0031s) isskirstytas(0.0012s) maladiec isvesti(0.0043) vargsai isvesti(0.003s) visi rikiavimai(0.011s)
-10k - nuskaitytas(0.0108286s) isrikiuotas(0.027805s) isskirstytas(0.00441412s) maladiec isvesti(0.0212594s) vargsai isvesti(0.0122754s) visi rikiavimai(0.0661631s)
-100k - nuskaitytas(0.0739688s) isrikiuotas(0.144601s) isskirstytas(0.0221737s) maladiec isvesti(0.12701s) vargsai isvesti(0.13024s) visi rikiavimai(0.424479s)
-1m - nuskaitytas(0.549354s) isrikiuotas(1.31903s) isskirstytas(0.238631s) maladiec isvesti(1.36901s) vargsai isvesti(0.907606s) visi rikiavimai(3.83508s)
-10m - nuskaitytas(4.86618s) isrikiuotas(15.3556s) isskirstytas(2.83875s) maladiec isvesti(14.1785s) vargsai isvesti(9.55324s) visi rikiavimai(42.0122s)
+**Laikai**
 
-<img width="459" height="119" alt="image" src="https://github.com/user-attachments/assets/5d55e264-82c0-4ab9-82aa-40350a6a7b46" />
-<img width="1068" height="659" alt="image" src="https://github.com/user-attachments/assets/9a76e87d-c6d5-4418-ba0f-db7978bdc317" />
+Trumpai:
+```
+10000  - 0.0724s
+100000 - 0.5376s
+1000000 - 2.88213s
+```
+
+**v0.4 laikai (su 5 ND)**
+```
+1000      - 0.0083s
+10000     - 0.0418s
+100000    - 0.2258s
+1000000   - 2.1877s
+10000000  - 21.4033s
+Visi      - 23.867s
+```
+
+Išsamiau:
+```
+1k  - nuskaitytas(0.00260862s) isrikiuotas(0.00305742s) isskirstytas(0.00118667s) maladiec isvesti(0.00508504s) vargsai isvesti(0.00288596s) visi rikiavimai(0.0174237s)
+10k - nuskaitytas(0.0122946s)  isrikiuotas(0.027299s)   isskirstytas(0.00503313s) maladiec isvesti(0.0214935s) vargsai isvesti(0.0132335s) visi rikiavimai(0.0685688s)
+100k- nuskaitytas(0.0674996s)  isrikiuotas(0.144965s)   isskirstytas(0.0221816s) maladiec isvesti(0.14138s)  vargsai isvesti(0.0945567s) visi rikiavimai(0.41721s)
+1m  - nuskaitytas(0.480759s)   isrikiuotas(1.31925s)    isskirstytas(0.234185s) maladiec isvesti(1.4084s)   vargsai isvesti(1.0077s)  visi rikiavimai(3.98002s)
+10m - nuskaitytas(4.58091s)    isrikiuotas(15.3626s)    isskirstytas(3.53852s) maladiec isvesti(15.0625s)  vargsai isvesti(10.1604s) visi rikiavimai(44.1762s)
+```
+
+<img width="624" height="119" alt="image" src="https://github.com/user-attachments/assets/ba2c4947-be74-4a2d-a7f7-18b27c404106" />
+<img width="1068" height="720" alt="image" src="https://github.com/user-attachments/assets/22719650-be0b-4c0e-bdac-9ad62378d845" />
+
+**v1.0 testavimas 1 dalis**
+
+Sistema:
+- Chip: Apple M2 (8 core GPU, 8 core GPU)
+- OS: MacOS Tahoe 26.3.1 (a)
+- RAM: 16GB unified memory
+- SSD: 256GB
+
+SVARBU: Rūšiavimas čia prilygsta `sort`, skirstymas yra studentų padalijimas į 2 konteinerius.
+
+<img width="694" height="149" alt="image" src="https://github.com/user-attachments/assets/1f32b2eb-59e0-440e-9429-261ea6bf564a" />
+<img width="674" height="156" alt="image" src="https://github.com/user-attachments/assets/7eb04200-f5ab-4c16-b7f6-22bd660ba879" />
+<img width="692" height="151" alt="image" src="https://github.com/user-attachments/assets/32961796-ae0c-4f72-b068-22c1f122a5d1" />
+<img width="360" height="218" alt="image" src="https://github.com/user-attachments/assets/34e5d3c0-9ed8-475f-9078-fdf690b1f8eb" />
+<img width="405" height="218" alt="image" src="https://github.com/user-attachments/assets/4c0c1a7b-2933-46f5-b82f-b5b4f8461381" />
+<img width="412" height="218" alt="image" src="https://github.com/user-attachments/assets/1b9ffd92-3681-4282-bd5a-25728a6a52dc" />
+
+**v1.0 testavimas 2 dalis**
+
+1 strategijos sparta pateikta 1 dalyje.
+
+2 strategija (tik vargšiukų ir studentų konteineriai):
+Pažiūrėjus į rezultatus naudojant 2 strategiją matomas programos paspartėjimas skirstant studentus į konteinerius. Vektoriai pagreitėjo iki 49%, list ir deque 30-35%.
+
+<img width="704" height="147" alt="image" src="https://github.com/user-attachments/assets/5ed05de1-246a-4111-91d0-3ec143cebe79" />
+<img width="678" height="147" alt="image" src="https://github.com/user-attachments/assets/a80db1a2-7ad8-46fe-a10f-d9d89bdc32f4" />
+<img width="698" height="147" alt="image" src="https://github.com/user-attachments/assets/21d19c98-d104-4384-9542-13c217247b9b" />
+<img width="362" height="226" alt="image" src="https://github.com/user-attachments/assets/eaa4c2f9-be7e-4b25-a86b-3efd672ab4c5" />
+<img width="361" height="226" alt="image" src="https://github.com/user-attachments/assets/a30a3c82-8796-4a14-96f3-b4625c4a692f" />
+<img width="362" height="226" alt="image" src="https://github.com/user-attachments/assets/60ecd561-3f71-435d-95d9-31d9091a0523" />
+
+**v1.0 testavimas 3 dalis**
+
+3 strategija:
+Skirstymas daromas su `partition` funkcija.
+Matome, kad skirstymo greitis paspartėjo, nors ir labai minimaliai.
+
+<img width="658" height="141" alt="image" src="https://github.com/user-attachments/assets/a4a8ddf8-6523-4733-8142-694e024c2a45" />
+<img width="361" height="217" alt="image" src="https://github.com/user-attachments/assets/64be7f4d-a48d-4246-9cc3-1da12e849cf6" />
 
 
-  
+
