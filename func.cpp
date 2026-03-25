@@ -275,7 +275,7 @@ void Rezultatas(vector<Studentas>& X){
     size_t w1 = string("Vardas").size();
     size_t w2 = string("Pavarde").size();
 
-    for(int i=0;i<X.size();++i){
+    for(size_t i=0;i<X.size();++i){
         w1=std::max(w1, X[i].vardas.size());
         w2=std::max(w2, X[i].pavarde.size());
     }
@@ -294,12 +294,12 @@ void Rezultatas(vector<Studentas>& X){
         os << endl;
 
         if(pasirinkimas=="m"||pasirinkimas=="mediana"){
-            for(int i=0;i<X.size();i++){
+            for(size_t i=0;i<X.size();i++){
                 os<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_med<<endl;
             }
         }
         else{
-            for(int i=0;i<X.size();i++){
+            for(size_t i=0;i<X.size();i++){
                 os<<left<<setw(w1)<<X[i].vardas<<setw(w2)<<X[i].pavarde<<setw(12)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid<<endl;
             }
         }
@@ -369,7 +369,7 @@ void RezultatasFailo(vector<Studentas>& X){
 
     size_t w1 = string("Vardas").size();
     size_t w2 = string("Pavarde").size();
-    for(int i=0;i<X.size();++i){
+    for(size_t i=0;i<X.size();++i){
         w1=std::max(w1, X[i].vardas.size());
         w2=std::max(w2, X[i].pavarde.size());
     }
@@ -385,7 +385,7 @@ void RezultatasFailo(vector<Studentas>& X){
         std::fill_n(std::ostream_iterator<char>(os), w1 + w2 + 32, '-');
         os << endl;
 
-        for(int i=0;i<X.size();i++){
+        for(size_t i=0;i<X.size();i++){
             os<<left<<setw(w1)<<X[i].vardas
               <<setw(w2)<<X[i].pavarde
               <<setw(16)<<std::fixed<<std::setprecision(2)<<X[i].galutinis_vid

@@ -1,3 +1,18 @@
+------------
+Diegimo ir paleidimo instrukcija (Unix / Makefile)
+1. Sukompiliuoti programą:
+```
+make
+```
+2. Paleisti programą:
+```
+./main
+```
+3. Išvalyti kompiliacijos failus:
+```
+make clean
+```
+
 RELEASES:
 --v.pradinė
 -Padarytas base programos modelis
