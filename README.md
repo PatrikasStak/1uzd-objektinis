@@ -25,8 +25,9 @@ SSD: 256GB
 <img width="405" height="218" alt="image" src="https://github.com/user-attachments/assets/4c0c1a7b-2933-46f5-b82f-b5b4f8461381" />
 <img width="412" height="218" alt="image" src="https://github.com/user-attachments/assets/1b9ffd92-3681-4282-bd5a-25728a6a52dc" />
 
-
-
+------------v1.0 testavimas 2 dalis-------------------
+1 strategijos sparta pateikta 1 dalyje
+2 strategija (tik vargšiukų ir kietakių konteineriai):
 
 
 
