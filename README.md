@@ -47,6 +47,12 @@ RELEASES:
 - Galima atlikti testavimus su vector, list ir deque konteineriais
 - Rezultatai pateikti README.md faile
 
+**v1.0**
+- Baigta programa
+- Galima paleisti su makefile
+- Pridėtos įvairios optimizacijos
+
+
 ------------
 **Laikai**
 
