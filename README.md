@@ -14,31 +14,38 @@ make clean
 ```
 
 RELEASES:
---v.pradinė
--Padarytas base programos modelis
--Naudojami statiniai masyvai
--Rezultatas skaičiuojamas su mediana/vidurkiu
---v0.1
--Galimybė generuoti pažymius
--Galimybė generuoti studentų vardus ir pavardes
--Dinaminės atminties masyvai/vektoriai
--Tvarkingesniė failų struktūra nei v.pradinė
---v0.2
--Galimybe skaityti is failo
--Galimybe rikiuoti rezultatus
--Failo skaitymo laiko apskaiciavimas
---v0.3
--Keli bug fixai
--Klaidų gaudymas jau buvo naudojamas nuo v0.1
---v0.4
--Failu generavimas
--Ju isrusiavimas i 2 failus
--Visko laikas yra matuojamas
---v0.4.1
--Sutaisytas rūšiavimo eiliškumas iš v0.4
---v1.0 pirma dalis
--Galima atlikti testavimus su vector, list ir deque konteineriais
--Rezultatai pateikti README.md faile
+
+**v.pradinė**
+- Padarytas base programos modelis
+- Naudojami statiniai masyvai
+- Rezultatas skaičiuojamas su mediana/vidurkiu
+
+**v0.1**
+- Galimybė generuoti pažymius
+- Galimybė generuoti studentų vardus ir pavardes
+- Dinaminės atminties masyvai/vektoriai
+- Tvarkingesniė failų struktūra nei v.pradinė
+
+**v0.2**
+- Galimybe skaityti is failo
+- Galimybe rikiuoti rezultatus
+- Failo skaitymo laiko apskaiciavimas
+
+**v0.3**
+- Keli bug fixai
+- Klaidų gaudymas jau buvo naudojamas nuo v0.1
+
+**v0.4**
+- Failu generavimas
+- Ju isrusiavimas i 2 failus
+- Visko laikas yra matuojamas
+
+**v0.4.1**
+- Sutaisytas rūšiavimo eiliškumas iš v0.4
+
+**v1.0 pirma dalis**
+- Galima atlikti testavimus su vector, list ir deque konteineriais
+- Rezultatai pateikti README.md faile
 
 ------------
 Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
@@ -89,7 +96,6 @@ Matome, kad skirstymo greitis paspartėjo, nors ir labai minimaliai
 
 <img width="658" height="141" alt="image" src="https://github.com/user-attachments/assets/a4a8ddf8-6523-4733-8142-694e024c2a45" />
 <img width="361" height="217" alt="image" src="https://github.com/user-attachments/assets/64be7f4d-a48d-4246-9cc3-1da12e849cf6" />
-
 
 
 
