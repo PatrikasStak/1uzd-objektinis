@@ -30,6 +30,7 @@ SSD: 256GB
 ------------v1.0 testavimas 2 dalis-------------------
 1 strategijos sparta pateikta 1 dalyje
 2 strategija (tik vargšiukų ir studentų konteineriai):
+Pažiūrėjus į rezultatus naudojant 2 strategiją matomas programos paspartėjimas skirstant studentus į konteinerius. Vektoriai pagreitėjo iki 49%, list ir deque 30-35%
 
 <img width="704" height="147" alt="image" src="https://github.com/user-attachments/assets/5ed05de1-246a-4111-91d0-3ec143cebe79" />
 <img width="678" height="147" alt="image" src="https://github.com/user-attachments/assets/a80db1a2-7ad8-46fe-a10f-d9d89bdc32f4" />
