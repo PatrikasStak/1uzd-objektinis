@@ -636,37 +636,29 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     std::ofstream mldc("maladiec.txt");
     std::ofstream vrgs("vargsai.txt");
 
-    auto writeHeader = [](std::ostream& out, int x, string choice) {
+    auto writeHeader = [](std::ostream& out, string choice) {
     out << left<<setw(25)<<"Vardas"<<setw(25)<<"Pavarde";
-    for(int i=0;i<x;i++){
-        out<<setw(10)<<("ND"+std::to_string(i+1));
-    }
-    out<<setw(10)<<"Egz.";
-    if(choice=="4")out<<setw(10)<<"Gal.(Med)"<<endl;
-    else out<<setw(10)<<"Gal.(Vid)"<<endl;
+    if(choice=="4")out<<setw(12)<<"Gal.(Med)"<<endl;
+    else out<<setw(12)<<"Gal.(Vid)"<<endl;
     };
 
-    auto writeStud = [](std::ostream& out, int x, const auto& X, string choice){
+    auto writeStud = [](std::ostream& out, const auto& X, string choice){
         for (const auto& s : X){
             out<<left<<setw(25)<<s.vardas<<setw(25)<<s.pavarde;
-            for(int j=0;j<x;j++){
-                out<<setw(10)<<s.nd[j];
-            }
-            out<<setw(10)<<s.egz;
-            if(choice=="4")out<<setw(10)<<std::fixed<<std::setprecision(2)<<s.galutinis_med<<endl;
-            else out<<setw(10)<<std::fixed<<std::setprecision(2)<<s.galutinis_vid<<endl;
+            if(choice=="4")out<<setw(12)<<std::fixed<<std::setprecision(2)<<s.galutinis_med<<endl;
+            else out<<setw(12)<<std::fixed<<std::setprecision(2)<<s.galutinis_vid<<endl;
         }
     };
     start = std::chrono::high_resolution_clock::now();
-    writeHeader(mldc, ndCount, choice);
-    writeStud(mldc, ndCount, X, choice);
+    writeHeader(mldc, choice);
+    writeStud(mldc, X, choice);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo maladiec isvesti per " << sec << " s\n";
 
     start = std::chrono::high_resolution_clock::now();
-    writeHeader(vrgs, ndCount, choice);
-    writeStud(vrgs, ndCount, vargsai, choice);
+    writeHeader(vrgs, choice);
+    writeStud(vrgs, vargsai, choice);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo vargsai isvesti per " << sec << " s\n";
