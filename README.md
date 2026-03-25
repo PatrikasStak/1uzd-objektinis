@@ -8,6 +8,7 @@ v0.4 laikai su 5 ND: 1000 - 0.0083      10000 - 0.0418      100000 - 0.2258     
 100k- nuskaitytas(0.0674996s)  isrikiuotas(0.144965s)   isskirstytas(0.0221816s) maladiec isvesti(0.14138s)  vargsai isvesti(0.0945567s) visi rikiavimai(0.41721s)
 1m  - nuskaitytas(0.480759s)   isrikiuotas(1.31925s)    isskirstytas(0.234185s) maladiec isvesti(1.4084s)   vargsai isvesti(1.0077s)  visi rikiavimai(3.98002s)
 10m - nuskaitytas(4.58091s)    isrikiuotas(15.3626s)    isskirstytas(3.53852s) maladiec isvesti(15.0625s)  vargsai isvesti(10.1604s) visi rikiavimai(44.1762s)
+
   <img width="624" height="119" alt="image" src="https://github.com/user-attachments/assets/ba2c4947-be74-4a2d-a7f7-18b27c404106" />
 <img width="1068" height="720" alt="image" src="https://github.com/user-attachments/assets/22719650-be0b-4c0e-bdac-9ad62378d845" />
 
@@ -18,6 +19,7 @@ Chip: Apple M2 (8 core GPU, 8 core GPU)
 OS: MacOS Tahoe 26.3.1 (a) 
 RAM 16GB unified memory
 SSD: 256GB
+
 <img width="694" height="149" alt="image" src="https://github.com/user-attachments/assets/1f32b2eb-59e0-440e-9429-261ea6bf564a" />
 <img width="674" height="156" alt="image" src="https://github.com/user-attachments/assets/7eb04200-f5ab-4c16-b7f6-22bd660ba879" />
 <img width="692" height="151" alt="image" src="https://github.com/user-attachments/assets/32961796-ae0c-4f72-b068-22c1f122a5d1" />
@@ -27,7 +29,17 @@ SSD: 256GB
 
 ------------v1.0 testavimas 2 dalis-------------------
 1 strategijos sparta pateikta 1 dalyje
-2 strategija (tik vargšiukų ir kietakių konteineriai):
+2 strategija (tik vargšiukų ir studentų konteineriai):
+
+<img width="704" height="147" alt="image" src="https://github.com/user-attachments/assets/5ed05de1-246a-4111-91d0-3ec143cebe79" />
+<img width="678" height="147" alt="image" src="https://github.com/user-attachments/assets/a80db1a2-7ad8-46fe-a10f-d9d89bdc32f4" />
+<img width="698" height="147" alt="image" src="https://github.com/user-attachments/assets/21d19c98-d104-4384-9542-13c217247b9b" />
+<img width="362" height="226" alt="image" src="https://github.com/user-attachments/assets/eaa4c2f9-be7e-4b25-a86b-3efd672ab4c5" />
+<img width="361" height="226" alt="image" src="https://github.com/user-attachments/assets/a30a3c82-8796-4a14-96f3-b4625c4a692f" />
+<img width="362" height="226" alt="image" src="https://github.com/user-attachments/assets/60ecd561-3f71-435d-95d9-31d9091a0523" />
+
+
+
 
 
 
