@@ -41,6 +41,12 @@ Pažiūrėjus į rezultatus naudojant 2 strategiją matomas programos paspartėj
 <img width="361" height="226" alt="image" src="https://github.com/user-attachments/assets/a30a3c82-8796-4a14-96f3-b4625c4a692f" />
 <img width="362" height="226" alt="image" src="https://github.com/user-attachments/assets/60ecd561-3f71-435d-95d9-31d9091a0523" />
 
+3 strategija:
+Skirstymas daromas su partition funkcija
+Matome, kad skirstymo greitis paspartėjo, nors ir labai minimaliai
+
+<img width="658" height="141" alt="image" src="https://github.com/user-attachments/assets/a4a8ddf8-6523-4733-8142-694e024c2a45" />
+<img width="361" height="217" alt="image" src="https://github.com/user-attachments/assets/64be7f4d-a48d-4246-9cc3-1da12e849cf6" />
 
 
 
