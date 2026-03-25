@@ -505,16 +505,13 @@ void sortContainer(std::list<T, Alloc>& c, Comp comp) {
 }
 
 static void moveVargsai(StudentVec& X, StudentVec& vargsai, bool useMed) {
-    for (const auto& s : X) {
+    auto isVargsas = [&](const Studentas& s){
         double val = useMed ? s.galutinis_med : s.galutinis_vid;
-        if (val < 5.0) vargsai.push_back(s);
-    }
-    X.erase(std::remove_if(X.begin(), X.end(),
-                           [&](const Studentas& s){
-                               double val = useMed ? s.galutinis_med : s.galutinis_vid;
-                               return val < 5.0;
-                           }),
-            X.end());
+        return val < 5.0;
+    };
+    auto mid = std::partition(X.begin(), X.end(), isVargsas);
+    vargsai.insert(vargsai.end(), X.begin(), mid);
+    X.erase(X.begin(), mid);
 }
 
 static void moveVargsai(StudentDeque& X, StudentDeque& vargsai, bool useMed) {
