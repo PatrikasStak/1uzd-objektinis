@@ -1,3 +1,30 @@
+RELEASES:
+--v.pradinė
+-Padarytas base programos modelis
+-Naudojami statiniai masyvai
+-Rezultatas skaičiuojamas su mediana/vidurkiu
+--v0.1
+-Galimybė generuoti pažymius
+-Galimybė generuoti studentų vardus ir pavardes
+-Dinaminės atminties masyvai/vektoriai
+-Tvarkingesniė failų struktūra nei v.pradinė
+--v0.2
+-Galimybe skaityti is failo
+-Galimybe rikiuoti rezultatus
+-Failo skaitymo laiko apskaiciavimas
+--v0.3
+-Keli bug fixai
+-Klaidų gaudymas jau buvo naudojamas nuo v0.1
+--v0.4
+-Failu generavimas
+-Ju isrusiavimas i 2 failus
+-Visko laikas yra matuojamas
+--v0.4.1
+-Sutaisytas rūšiavimo eiliškumas iš v0.4
+--v1.0 pirma dalis
+-Galima atlikti testavimus su vector, list ir deque konteineriais
+-Rezultatai pateikti README.md faile
+
 ------------
 Laikai - 10000 - 0.0724s; 100000 - 0.5376s; 1000000 - 2.88213s
 ------------
