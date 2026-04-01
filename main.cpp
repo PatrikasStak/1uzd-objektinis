@@ -30,34 +30,46 @@ int main() {
         else std::cerr<<"Neteisinga ivestis!\n";
         }
 
+        std::string strategija_str;
+        int strategija = 2;
+        while(true){
+            std::cout << "Pasirinkite strategija: 1 - vargsai+maladiec, 2 - vargsai+X, 3 - vargsai+X su partition\n";
+            getline(std::cin, strategija_str);
+            if(strategija_str=="1"||strategija_str=="2"||strategija_str=="3"){
+                strategija = std::stoi(strategija_str);
+                break;
+            }
+            std::cerr<<"Neteisinga ivestis!\n";
+        }
+
         while (true) {
             std::cout << "Kuri faila rusiuoti? 1 - generuoti1000.txt 2 - generuoti10000.txt 3 - generuoti100000.txt 4 - generuoti1000000.txt 5 - generuoti10000000.txt 6 - baigti \n";
             getline(std::cin, choice);
 
             if (choice == "1") {
-                if (kont == "1") GeneruotuRusiavimasVec("generuoti1000.txt");
-                else if (kont == "2") GeneruotuRusiavimasList("generuoti1000.txt");
-                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti1000.txt");
+                if (kont == "1") GeneruotuRusiavimasVec("generuoti1000.txt", strategija);
+                else if (kont == "2") GeneruotuRusiavimasList("generuoti1000.txt", strategija);
+                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti1000.txt", strategija);
                 else std::cerr << "Neteisingas konteinerio pasirinkimas\n";
             } else if (choice == "2") {
-                if (kont == "1") GeneruotuRusiavimasVec("generuoti10000.txt");
-                else if (kont == "2") GeneruotuRusiavimasList("generuoti10000.txt");
-                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti10000.txt");
+                if (kont == "1") GeneruotuRusiavimasVec("generuoti10000.txt", strategija);
+                else if (kont == "2") GeneruotuRusiavimasList("generuoti10000.txt", strategija);
+                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti10000.txt", strategija);
                 else std::cerr << "Neteisingas konteinerio pasirinkimas\n";
             } else if (choice == "3") {
-                if (kont == "1") GeneruotuRusiavimasVec("generuoti100000.txt");
-                else if (kont == "2") GeneruotuRusiavimasList("generuoti100000.txt");
-                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti100000.txt");
+                if (kont == "1") GeneruotuRusiavimasVec("generuoti100000.txt", strategija);
+                else if (kont == "2") GeneruotuRusiavimasList("generuoti100000.txt", strategija);
+                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti100000.txt", strategija);
                 else std::cerr << "Neteisingas konteinerio pasirinkimas\n";
             } else if (choice == "4") {
-                if (kont == "1") GeneruotuRusiavimasVec("generuoti1000000.txt");
-                else if (kont == "2") GeneruotuRusiavimasList("generuoti1000000.txt");
-                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti1000000.txt");
+                if (kont == "1") GeneruotuRusiavimasVec("generuoti1000000.txt", strategija);
+                else if (kont == "2") GeneruotuRusiavimasList("generuoti1000000.txt", strategija);
+                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti1000000.txt", strategija);
                 else std::cerr << "Neteisingas konteinerio pasirinkimas\n";
             } else if (choice == "5") {
-                if (kont == "1") GeneruotuRusiavimasVec("generuoti10000000.txt");
-                else if (kont == "2") GeneruotuRusiavimasList("generuoti10000000.txt");
-                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti10000000.txt");
+                if (kont == "1") GeneruotuRusiavimasVec("generuoti10000000.txt", strategija);
+                else if (kont == "2") GeneruotuRusiavimasList("generuoti10000000.txt", strategija);
+                else if (kont == "3") GeneruotuRusiavimasDeque("generuoti10000000.txt", strategija);
                 else std::cerr << "Neteisingas konteinerio pasirinkimas\n";
             } else if (choice == "6") {
                 break;

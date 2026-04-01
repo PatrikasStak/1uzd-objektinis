@@ -504,17 +504,31 @@ void sortContainer(std::list<T, Alloc>& c, Comp comp) {
     c.sort(comp);
 }
 
-static void moveVargsai(StudentVec& X, StudentVec& vargsai, bool useMed) {
-    auto isVargsas = [&](const Studentas& s){
+static void splitVargsaiMaladiec(const StudentVec& X, StudentVec& vargsai, StudentVec& maladiec, bool useMed) {
+    for (const auto& s : X) {
         double val = useMed ? s.galutinis_med : s.galutinis_vid;
-        return val < 5.0;
-    };
-    auto mid = std::partition(X.begin(), X.end(), isVargsas);
-    vargsai.insert(vargsai.end(), X.begin(), mid);
-    X.erase(X.begin(), mid);
+        if (val < 5.0) vargsai.push_back(s);
+        else maladiec.push_back(s);
+    }
 }
 
-static void moveVargsai(StudentDeque& X, StudentDeque& vargsai, bool useMed) {
+static void splitVargsaiMaladiec(const StudentDeque& X, StudentDeque& vargsai, StudentDeque& maladiec, bool useMed) {
+    for (const auto& s : X) {
+        double val = useMed ? s.galutinis_med : s.galutinis_vid;
+        if (val < 5.0) vargsai.push_back(s);
+        else maladiec.push_back(s);
+    }
+}
+
+static void splitVargsaiMaladiec(const StudentList& X, StudentList& vargsai, StudentList& maladiec, bool useMed) {
+    for (const auto& s : X) {
+        double val = useMed ? s.galutinis_med : s.galutinis_vid;
+        if (val < 5.0) vargsai.push_back(s);
+        else maladiec.push_back(s);
+    }
+}
+
+static void moveVargsaiSimple(StudentVec& X, StudentVec& vargsai, bool useMed) {
     for (const auto& s : X) {
         double val = useMed ? s.galutinis_med : s.galutinis_vid;
         if (val < 5.0) vargsai.push_back(s);
@@ -527,7 +541,20 @@ static void moveVargsai(StudentDeque& X, StudentDeque& vargsai, bool useMed) {
             X.end());
 }
 
-static void moveVargsai(StudentList& X, StudentList& vargsai, bool useMed) {
+static void moveVargsaiSimple(StudentDeque& X, StudentDeque& vargsai, bool useMed) {
+    for (const auto& s : X) {
+        double val = useMed ? s.galutinis_med : s.galutinis_vid;
+        if (val < 5.0) vargsai.push_back(s);
+    }
+    X.erase(std::remove_if(X.begin(), X.end(),
+                           [&](const Studentas& s){
+                               double val = useMed ? s.galutinis_med : s.galutinis_vid;
+                               return val < 5.0;
+                           }),
+            X.end());
+}
+
+static void moveVargsaiSimple(StudentList& X, StudentList& vargsai, bool useMed) {
     for (auto it = X.begin(); it != X.end(); ) {
         double val = useMed ? it->galutinis_med : it->galutinis_vid;
         if (val < 5.0) {
@@ -539,7 +566,25 @@ static void moveVargsai(StudentList& X, StudentList& vargsai, bool useMed) {
     }
 }
 
-template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
+static void moveVargsaiPartition(StudentVec& X, StudentVec& vargsai, bool useMed) {
+    auto isVargsas = [&](const Studentas& s){
+        double val = useMed ? s.galutinis_med : s.galutinis_vid;
+        return val < 5.0;
+    };
+    auto mid = std::partition(X.begin(), X.end(), isVargsas);
+    vargsai.insert(vargsai.end(), X.begin(), mid);
+    X.erase(X.begin(), mid);
+}
+
+static void moveVargsaiPartition(StudentDeque& X, StudentDeque& vargsai, bool useMed) {
+    moveVargsaiSimple(X, vargsai, useMed);
+}
+
+static void moveVargsaiPartition(StudentList& X, StudentList& vargsai, bool useMed) {
+    moveVargsaiSimple(X, vargsai, useMed);
+}
+
+template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path, int strategija){
     auto start = std::chrono::high_resolution_clock::now();
     std::ifstream in;
     while (true){
@@ -554,7 +599,7 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
             return;
         }
     }
-    Cont X, vargsai;
+    Cont X, vargsai, maladiec;
     string header;
     std::stringstream ss;
     ss<<in.rdbuf();
@@ -621,7 +666,16 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     std::cout <<"\033[32m"<< path<<" failas isrikiuotas per: " << sec << " s"<<"\033[0m"<<"\n";
 
     start = std::chrono::high_resolution_clock::now();
-    moveVargsai(X, vargsai, choice=="4");
+    bool useMed = (choice == "4");
+    if (strategija == 1) {
+        splitVargsaiMaladiec(X, vargsai, maladiec, useMed);
+    } else if (strategija == 2) {
+        moveVargsaiSimple(X, vargsai, useMed);
+    } else if (strategija == 3) {
+        moveVargsaiPartition(X, vargsai, useMed);
+    } else {
+        moveVargsaiSimple(X, vargsai, useMed);
+    }
     
     
     
@@ -648,7 +702,8 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
     };
     start = std::chrono::high_resolution_clock::now();
     writeHeader(mldc, choice);
-    writeStud(mldc, X, choice);
+    if (strategija == 1) writeStud(mldc, maladiec, choice);
+    else writeStud(mldc, X, choice);
     end = std::chrono::high_resolution_clock::now();
     sec = std::chrono::duration<double>(end - start).count();
     std::cout << path<<" failo maladiec isvesti per " << sec << " s\n";
@@ -669,16 +724,16 @@ template <typename Cont> void GeneruotuRusiavimasImpl(const std::string& path){
 
 
 }
-void GeneruotuRusiavimasVec(const std::string& path) {
-    GeneruotuRusiavimasImpl<StudentVec>(path);
+void GeneruotuRusiavimasVec(const std::string& path, int strategija) {
+    GeneruotuRusiavimasImpl<StudentVec>(path, strategija);
 }
 
-void GeneruotuRusiavimasList(const std::string& path) {
-    GeneruotuRusiavimasImpl<StudentList>(path);
+void GeneruotuRusiavimasList(const std::string& path, int strategija) {
+    GeneruotuRusiavimasImpl<StudentList>(path, strategija);
 }
 
-void GeneruotuRusiavimasDeque(const std::string& path) {
-    GeneruotuRusiavimasImpl<StudentDeque>(path);
+void GeneruotuRusiavimasDeque(const std::string& path, int strategija) {
+    GeneruotuRusiavimasImpl<StudentDeque>(path, strategija);
 }
 
 
